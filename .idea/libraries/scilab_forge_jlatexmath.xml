@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="scilab.forge.jlatexmath" type="repository">
+    <properties maven-id="org.scilab.forge:jlatexmath:1.0.7" />
+    <ANNOTATIONS>
+      <root url="file://$PROJECT_DIR$/../openjfx-22.0.1_windows-x64_bin-sdk/javafx-sdk-22.0.1/lib" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jlatexmath-1.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jlatexmath-font-greek-1.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jlatexmath-font-cyrillic-1.0.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
