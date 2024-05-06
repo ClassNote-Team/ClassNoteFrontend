@@ -1,11 +1,9 @@
 package MathEditPage;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -16,9 +14,11 @@ public class MathEditPage {
     private JFrame frame;
     private JTextArea latexArea;
     private JSplitPane splitPane;
+    private JSplitPane editPane;
     private JScrollPane preview;
     private JScrollPane latexContent;
     private JTextArea previewArea;
+    private MathKeyboard keyboard;
 
     public void createAndShowGUI(){
         frame = new JFrame("JFrame with TextArea");
@@ -47,10 +47,16 @@ public class MathEditPage {
     private void createSplitPane() {
         // Create JScrollPane
         latexContent = new JScrollPane(latexArea);
+        keyboard = new MathKeyboard();
+        keyboard.createKeyboard(frame.getWidth() / 2);
+
         preview = new JScrollPane(previewArea);
+        editPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexContent, keyboard);
+        editPane.setDividerLocation(frame.getHeight() / 3);
+        editPane.setResizeWeight(0.5);
 
         // Create JSplitPane
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, latexContent, preview);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, editPane, preview);
         splitPane.setDividerLocation(frame.getWidth() / 2);
         splitPane.setResizeWeight(0.5);
 
