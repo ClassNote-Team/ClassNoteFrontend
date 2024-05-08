@@ -12,6 +12,7 @@ public class MathToolBar extends JToolBar{
     private MathButton greekSymbolButton;
     private MathButton calculusButton;
     private MathButton MathSymbolButton;
+    private MathButtonListener listener;
 
     public void createToolBar(int width) {
 
@@ -22,6 +23,7 @@ public class MathToolBar extends JToolBar{
             public void actionPerformed(ActionEvent e) {
                 // Add action here
                 System.out.println(greekSymbolButton.getHeight());
+                listener.onMathButtonPressed("greekSymbol");
             }
         });
         add(greekSymbolButton);
@@ -32,6 +34,7 @@ public class MathToolBar extends JToolBar{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(calculusButton.getHeight());
+                listener.onMathButtonPressed("calculus");
             }
         });
         add(calculusButton);
@@ -42,6 +45,7 @@ public class MathToolBar extends JToolBar{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(MathSymbolButton.getHeight());
+                listener.onMathButtonPressed( "MathSymbol");
             }
         });
         add(MathSymbolButton);
@@ -52,5 +56,9 @@ public class MathToolBar extends JToolBar{
 
         validate();
         repaint();
+    }
+
+    public void setMathButtonListener(MathButtonListener listener) {
+        this.listener = listener;
     }
 }

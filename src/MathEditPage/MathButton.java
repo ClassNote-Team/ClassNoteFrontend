@@ -18,15 +18,16 @@ public class MathButton extends JButton{
         TeXFormula formula = new TeXFormula(latex);
         icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
 
-        setMaximumSize(new Dimension(icon.getIconWidth(), 23));
-        setPreferredSize(new Dimension(icon.getIconWidth(), 23));
-        validate();
+        setMaximumSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        icon.paintIcon(this, g2, 0, 0);
+        int x = (getWidth() - icon.getIconWidth()) / 2;
+        int y = (getHeight()- icon.getIconHeight()) / 2;
+        icon.paintIcon(this, g2, x, y);
     }
 }

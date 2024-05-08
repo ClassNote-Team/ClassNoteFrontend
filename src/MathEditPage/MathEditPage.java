@@ -1,6 +1,7 @@
 package MathEditPage;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -19,6 +20,7 @@ public class MathEditPage {
     private JScrollPane latexContent;
     private JTextArea previewArea;
     private MathKeyboard keyboard;
+    private LaTexPanel previewContent;
 
     public void createAndShowGUI(){
         frame = new JFrame("JFrame with TextArea");
@@ -48,17 +50,20 @@ public class MathEditPage {
         // Create JScrollPane
         latexContent = new JScrollPane(latexArea);
         keyboard = new MathKeyboard();
-        keyboard.createKeyboard(frame.getWidth() / 2);
+        keyboard.createKeyboard(frame.getWidth() / 2, frame.getHeight() / 3 * 2);
 
-        preview = new JScrollPane(previewArea);
+        previewContent = new LaTexPanel();
+        preview = new JScrollPane(previewContent);
         editPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexContent, keyboard);
         editPane.setDividerLocation(frame.getHeight() / 3);
-        editPane.setResizeWeight(0.5);
+        editPane.setResizeWeight(0.3);
+        editPane.setEnabled(false);
 
         // Create JSplitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, editPane, preview);
         splitPane.setDividerLocation(frame.getWidth() / 2);
         splitPane.setResizeWeight(0.5);
+        splitPane.setEnabled(false);
 
         frame.add(splitPane, BorderLayout.CENTER);
 
@@ -69,16 +74,16 @@ public class MathEditPage {
         @Override
         public void insertUpdate(DocumentEvent e) {
             if (e.getDocument() == latexArea.getDocument()){
-                System.out.println("Text was inserted in latexArea");
-                previewArea.setText(latexArea.getText());
+                previewContent.setText(latexArea.getText());
+                previewContent.repaint();
             }
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
             if (e.getDocument() == latexArea.getDocument()){
-                System.out.println("Text was removed");
-                previewArea.setText(latexArea.getText());
+                previewContent.setText(latexArea.getText());
+                previewContent.repaint();
             }
         }
 
