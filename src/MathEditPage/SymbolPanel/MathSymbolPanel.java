@@ -1,41 +1,16 @@
-package MathEditPage;
+package MathEditPage.SymbolPanel;
 
-import javax.swing.JPanel;
+import MathEditPage.MathButton;
+import MathEditPage.MathPageConstant;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.util.ArrayList;
+public class MathSymbolPanel extends SymbolPanel {
 
-public class MathSymbolPanel extends JPanel{
-    private ArrayList<MathButton> buttons;
-
-    public MathSymbolPanel(){
-        super(new FlowLayout(FlowLayout.LEFT));
-        buttons = new ArrayList<MathButton>();
+    public MathSymbolPanel() {
+        super();
     }
 
-    public void createMathSymbolPanel(int width, int height){
-        setButton();
-
-        int preferredSize = 0;
-        for (MathButton button : buttons) {
-            add(button);
-            preferredSize = Math.max(preferredSize, button.getPreferredSize().width);
-            preferredSize = Math.max(preferredSize, button.getPreferredSize().height);
-        }
-
-        for (MathButton button : buttons) {
-            button.setPreferredSize(new Dimension(preferredSize, preferredSize));
-            // button.setMargin(new Insets(0, 0, 0, 0));
-            // System.out.println(button.getInsets());
-        }
-        System.out.println(getPreferredSize());
-        setPreferredSize(new Dimension(width, height));
-        validate();
-        repaint();
-    }
-
-    private void setButton(){
+    @Override
+    protected void setButton(){
         MathButton pulsButton = new MathButton();
         pulsButton.createButton("+", MathPageConstant.LATEX_FONT_SIZE);
         MathButton minusButton = new MathButton();
@@ -62,6 +37,20 @@ public class MathSymbolPanel extends JPanel{
         sqrtButton.createButton("\\sqrt{x}", MathPageConstant.LATEX_FONT_SIZE);
         MathButton rootButton = new MathButton();
         rootButton.createButton("\\sqrt[y]{x}", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton absButton = new MathButton();
+        absButton.createButton("|x|", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton floorButton = new MathButton();
+        floorButton.createButton("\\lfloor x \\rfloor", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton ceilButton = new MathButton();
+        ceilButton.createButton("\\lceil x \\rceil", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton combButton = new MathButton();
+        combButton.createButton("\\binom{n}{k}", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton modButton = new MathButton();
+        modButton.createButton("mod", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton equivButton = new MathButton();
+        equivButton.createButton("\\equiv", MathPageConstant.LATEX_FONT_SIZE);
+
+
 
         buttons.add(pulsButton);
         buttons.add(minusButton);
@@ -76,5 +65,11 @@ public class MathSymbolPanel extends JPanel{
         buttons.add(lessOrEqualButton);
         buttons.add(sqrtButton);
         buttons.add(rootButton);
+        buttons.add(absButton);
+        buttons.add(floorButton);
+        buttons.add(ceilButton);
+        buttons.add(combButton);
+        buttons.add(modButton);
+        buttons.add(equivButton);
     }
 }

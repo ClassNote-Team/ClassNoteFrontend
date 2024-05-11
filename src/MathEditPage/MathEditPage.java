@@ -1,7 +1,6 @@
 package MathEditPage;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
@@ -68,6 +67,7 @@ public class MathEditPage {
         frame.add(splitPane, BorderLayout.CENTER);
 
         frame.revalidate(); // Revalidate to update the frame
+        frame.repaint(); // Repaint to update the frame
     }
 
     private class DocumentChanged implements DocumentListener {

@@ -1,6 +1,8 @@
 package MathEditPage;
 
+import MathEditPage.MathPageConstant.PAGE_MODE;
+
 public interface MathButtonListener {
-    void onMathButtonPressed(String command);
+    void onMathButtonPressed(PAGE_MODE mode);
 }
 

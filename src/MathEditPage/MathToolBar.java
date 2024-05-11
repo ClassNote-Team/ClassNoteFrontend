@@ -1,11 +1,14 @@
 package MathEditPage;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
+
+import MathEditPage.MathPageConstant.PAGE_MODE;
 
 public class MathToolBar extends JToolBar{
 
@@ -15,40 +18,40 @@ public class MathToolBar extends JToolBar{
     private MathButtonListener listener;
 
     public void createToolBar(int width) {
+        MathSymbolButton = new MathButton();
+        MathSymbolButton.createButton("+-\\times\\div", MathPageConstant.LATEX_FONT_SIZE);
+        MathSymbolButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(MathSymbolButton.getHeight());
+                listener.onMathButtonPressed(PAGE_MODE.MATH);
+            }
+        });
+        add(MathSymbolButton);
 
         greekSymbolButton = new MathButton();
-        greekSymbolButton.createButton("\\alpha\\beta\\gamma\\delta", 18);
+        greekSymbolButton.createButton("\\alpha\\beta\\gamma\\delta", MathPageConstant.LATEX_FONT_SIZE);
         greekSymbolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Add action here
                 System.out.println(greekSymbolButton.getHeight());
-                listener.onMathButtonPressed("greekSymbol");
+                listener.onMathButtonPressed(PAGE_MODE.GREEK);
             }
         });
         add(greekSymbolButton);
 
         calculusButton = new MathButton();
-        calculusButton.createButton("\\int\\sum\\prod\\bigcup", 9);
+        calculusButton.createButton("\\int\\sum\\prod\\bigcup", MathPageConstant.LATEX_FONT_SIZE / 2);
         calculusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(calculusButton.getHeight());
-                listener.onMathButtonPressed("calculus");
+                listener.onMathButtonPressed(PAGE_MODE.CALCULUS);
             }
         });
         add(calculusButton);
 
-        MathSymbolButton = new MathButton();
-        MathSymbolButton.createButton("+-\\times\\div", 18);
-        MathSymbolButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(MathSymbolButton.getHeight());
-                listener.onMathButtonPressed( "MathSymbol");
-            }
-        });
-        add(MathSymbolButton);
 
         setLayout(new FlowLayout(FlowLayout.CENTER));
         setFloatable(false);
