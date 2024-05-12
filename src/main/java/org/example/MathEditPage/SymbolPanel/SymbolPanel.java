@@ -1,4 +1,4 @@
-package MathEditPage.SymbolPanel;
+package org.example.MathEditPage.SymbolPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,7 +10,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import MathEditPage.MathButton;
+import org.example.MathEditPage.MathButton;
 
 public abstract class SymbolPanel extends JPanel {
     protected ArrayList<MathButton> buttons;

@@ -1,4 +1,4 @@
-package HackMDPage;
+package org.example.HackMDPage;
 
 import javax.swing.*;
 import java.awt.*;

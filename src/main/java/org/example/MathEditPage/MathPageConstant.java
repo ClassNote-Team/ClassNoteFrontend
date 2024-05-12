@@ -1,4 +1,4 @@
-package MathEditPage;
+package org.example.MathEditPage;
 
 public class MathPageConstant {
     public static final int LATEX_FONT_SIZE = 18;

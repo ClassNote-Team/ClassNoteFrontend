@@ -1,4 +1,4 @@
-package MathEditPage;
+package org.example.MathEditPage;
 
 import javax.swing.JButton;
 
