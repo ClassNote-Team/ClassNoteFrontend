@@ -7,12 +7,11 @@ import java.awt.event.ActionListener;
 
 public class HackMDPage {
 
-    private JFrame frame;
-    private JTextArea inputArea;
-    private JPanel displayPanel;
-    private JSplitPane splitPane;
+    private final JFrame frame;
+    private JPanel contentPanel;
+    private String content = "";
 
-    public void createAndShowGUI() {
+    public HackMDPage() {
         frame = new JFrame("HackMD Page");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +43,7 @@ public class HackMDPage {
         inputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                updateContent();
                 showInputMode();
             }
         });
@@ -56,6 +56,7 @@ public class HackMDPage {
         splitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                updateContent();
                 showSplitMode();
             }
         });
@@ -71,17 +72,25 @@ public class HackMDPage {
         frame.setVisible(true);
     }
 
-    private void clearContent() {
-        Container contentPane = frame.getContentPane();
-        if (inputArea != null)
-            contentPane.remove(inputArea);
-        if (displayPanel != null)
-            contentPane.remove(displayPanel);
-        if (splitPane != null)
-            contentPane.remove(splitPane);
+    private void updateContent() {
+        if (contentPanel instanceof SplitModePanel) {
+            content = ((SplitModePanel) contentPanel).getContent();
+        } else if (contentPanel instanceof InputModePanel) {
+            content = ((InputModePanel) contentPanel).getContent();
+
+        }
+
+
     }
 
-    private void refreshContent() {
+    private void clearContent() {
+        Container contentPane = frame.getContentPane();
+        if (contentPanel != null) {
+            contentPane.remove(contentPanel);
+        }
+    }
+
+    private void refreshPage() {
         frame.revalidate(); // Revalidate to update the frame
         frame.repaint(); // Repaint to reflect changes
     }
@@ -90,32 +99,26 @@ public class HackMDPage {
     private void showInputMode() {
         clearContent();
         // Add inputArea
-        inputArea = new JTextArea();
-        frame.add(inputArea, BorderLayout.CENTER);
-
-        frame.revalidate(); // Revalidate to update the frame
+        contentPanel = new InputModePanel(content);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        refreshPage();
     }
 
     // Method to show display mode
     private void showDisplayMode() {
         clearContent();
         // Add displayPanel
-        displayPanel = new JPanel();
-        frame.add(displayPanel, BorderLayout.CENTER);
-
-        frame.revalidate(); // Revalidate to update the frame
+        contentPanel = new DisplayModePanel(content);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        refreshPage();
     }
 
     // Method to show split mode
     private void showSplitMode() {
         clearContent();
-        // Add splitPane
-        inputArea = new JTextArea();
-        displayPanel = new JPanel();
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, inputArea, displayPanel);
-        splitPane.setResizeWeight(0.5);
-        frame.add(splitPane, BorderLayout.CENTER);
-
-        frame.revalidate(); // Revalidate to update the frame
+        // Add splitPanel
+        contentPanel = new SplitModePanel(content);
+        frame.add(contentPanel, BorderLayout.CENTER);
+        refreshPage();
     }
 }
