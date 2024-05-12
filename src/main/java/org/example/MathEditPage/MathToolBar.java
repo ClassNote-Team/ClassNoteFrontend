@@ -1,4 +1,4 @@
-package MathEditPage;
+package org.example.MathEditPage;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JToolBar;
 
-import MathEditPage.MathPageConstant.PAGE_MODE;
+import org.example.MathEditPage.MathPageConstant.PAGE_MODE;
 
 public class MathToolBar extends JToolBar{
 

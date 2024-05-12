@@ -1,4 +1,4 @@
-package MathEditPage;
+package org.example.MathEditPage;
 
 import java.awt.BorderLayout;
 
@@ -6,9 +6,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import MathEditPage.MathPageConstant.PAGE_MODE;
-import MathEditPage.SymbolPanel.CalculusSymbolPanel;
-import MathEditPage.SymbolPanel.MathSymbolPanel;
+import org.example.MathEditPage.MathPageConstant.PAGE_MODE;
+import org.example.MathEditPage.SymbolPanel.CalculusSymbolPanel;
+import org.example.MathEditPage.SymbolPanel.MathSymbolPanel;
 
 public class MathKeyboard extends JPanel implements MathButtonListener {
 

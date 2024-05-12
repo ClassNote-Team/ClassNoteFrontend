@@ -1,4 +1,4 @@
-package MathEditPage;
+package org.example.MathEditPage;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

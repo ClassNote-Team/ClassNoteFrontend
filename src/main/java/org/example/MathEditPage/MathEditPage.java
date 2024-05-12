@@ -1,4 +1,6 @@
-package MathEditPage;
+package org.example.MathEditPage;
+
+import org.example.MathEditPage.LaTexPanel;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;

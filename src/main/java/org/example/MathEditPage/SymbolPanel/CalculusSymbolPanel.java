@@ -1,7 +1,7 @@
-package MathEditPage.SymbolPanel;
+package org.example.MathEditPage.SymbolPanel;
 
-import MathEditPage.MathButton;
-import MathEditPage.MathPageConstant;
+import org.example.MathEditPage.MathButton;
+import org.example.MathEditPage.MathPageConstant;
 
 public class CalculusSymbolPanel extends SymbolPanel {
 
