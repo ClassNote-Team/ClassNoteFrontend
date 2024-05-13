@@ -13,13 +13,20 @@ import org.scilab.forge.jlatexmath.TeXIcon;
 public class MathButton extends JButton{
 
     private TeXIcon icon;
+    private String latex;
 
     public void createButton(String latex, int size) {
+        this.latex = latex;
+
         TeXFormula formula = new TeXFormula(latex);
         icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
 
         setMaximumSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
         setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+    }
+
+    public String getLatex() {
+        return latex;
     }
 
     @Override

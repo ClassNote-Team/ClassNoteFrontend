@@ -8,4 +8,5 @@ public class MathPageConstant {
         GREEK,
         CALCULUS
     }
+    public static final int GRIDLAYOUT_ROWS = 6;
 }

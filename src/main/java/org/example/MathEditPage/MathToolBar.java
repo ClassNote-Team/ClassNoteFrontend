@@ -1,6 +1,5 @@
 package org.example.MathEditPage;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +14,7 @@ public class MathToolBar extends JToolBar{
     private MathButton greekSymbolButton;
     private MathButton calculusButton;
     private MathButton MathSymbolButton;
-    private MathButtonListener listener;
+    private PageSwitchListener listener;
 
     public void createToolBar(int width) {
         MathSymbolButton = new MathButton();
@@ -24,7 +23,7 @@ public class MathToolBar extends JToolBar{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(MathSymbolButton.getHeight());
-                listener.onMathButtonPressed(PAGE_MODE.MATH);
+                listener.onPageSwitch(PAGE_MODE.MATH);
             }
         });
         add(MathSymbolButton);
@@ -36,7 +35,7 @@ public class MathToolBar extends JToolBar{
             public void actionPerformed(ActionEvent e) {
                 // Add action here
                 System.out.println(greekSymbolButton.getHeight());
-                listener.onMathButtonPressed(PAGE_MODE.GREEK);
+                listener.onPageSwitch(PAGE_MODE.GREEK);
             }
         });
         add(greekSymbolButton);
@@ -47,7 +46,7 @@ public class MathToolBar extends JToolBar{
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(calculusButton.getHeight());
-                listener.onMathButtonPressed(PAGE_MODE.CALCULUS);
+                listener.onPageSwitch(PAGE_MODE.CALCULUS);
             }
         });
         add(calculusButton);
@@ -61,7 +60,7 @@ public class MathToolBar extends JToolBar{
         repaint();
     }
 
-    public void setMathButtonListener(MathButtonListener listener) {
+    public void setMathButtonListener(PageSwitchListener listener) {
         this.listener = listener;
     }
 }

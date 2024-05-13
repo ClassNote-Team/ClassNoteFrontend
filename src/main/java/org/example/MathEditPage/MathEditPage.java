@@ -1,7 +1,5 @@
 package org.example.MathEditPage;
 
-import org.example.MathEditPage.LaTexPanel;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -11,7 +9,7 @@ import javax.swing.event.DocumentListener;
 
 import java.awt.BorderLayout;
 
-public class MathEditPage {
+public class MathEditPage implements MathButtonListener {
 
     private JFrame frame;
     private JTextArea latexArea;
@@ -52,6 +50,7 @@ public class MathEditPage {
         latexContent = new JScrollPane(latexArea);
         keyboard = new MathKeyboard();
         keyboard.createKeyboard(frame.getWidth() / 2, frame.getHeight() / 3 * 2);
+        keyboard.setMathButtonListener(this);
 
         previewContent = new LaTexPanel();
         preview = new JScrollPane(previewContent);
@@ -70,6 +69,28 @@ public class MathEditPage {
 
         frame.revalidate(); // Revalidate to update the frame
         frame.repaint(); // Repaint to update the frame
+    }
+
+    private String fixLatexString(String latex) {
+        boolean isLeft = false;
+        String fixedLatex = "";
+        for (char c : latex.toCharArray()) {
+            if (c == '{') {
+                isLeft = true;
+                fixedLatex += c;
+            }
+            else if (c == '}') {
+                isLeft = false;
+            }
+            if (isLeft == false) fixedLatex += c;
+        }
+        return fixedLatex;
+    }
+
+    @Override
+    public void onMathButtonPressed(String latex) {
+        latex = fixLatexString(latex);
+        latexArea.insert(latex, latexArea.getCaretPosition());
     }
 
     private class DocumentChanged implements DocumentListener {

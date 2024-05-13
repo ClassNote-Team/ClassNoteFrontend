@@ -23,7 +23,6 @@ public class LaTexPanel extends JPanel{
 
             // 设置组件的首选大小，足以显示 LaTeX
             setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-            System.out.println(latex);
         }
         catch (Exception e) {
             System.out.println("Error: " + e);
