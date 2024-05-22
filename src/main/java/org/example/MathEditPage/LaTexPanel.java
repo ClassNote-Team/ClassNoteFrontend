@@ -13,7 +13,6 @@ import org.scilab.forge.jlatexmath.TeXIcon;
 public class LaTexPanel extends JPanel{
 
     private TeXIcon icon;
-
     public void setText(String latex) {
         try {
             // 创建一个TeXFormula

@@ -49,8 +49,14 @@ public class MathSymbolPanel extends SymbolPanel {
         modButton.createButton("mod", MathPageConstant.LATEX_FONT_SIZE);
         MathButton equivButton = new MathButton();
         equivButton.createButton("\\equiv", MathPageConstant.LATEX_FONT_SIZE);
-
-
+        MathButton matrixButton = new MathButton();
+        matrixButton.createButton("\\begin{bmatrix} x & y \\\\ z & w \\end{bmatrix}", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton determinantButton = new MathButton();
+        determinantButton.createButton("\\begin{vmatrix} x & y \\\\ z & w \\end{vmatrix}", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton transposeButton = new MathButton();
+        transposeButton.createButton("A^T", MathPageConstant.LATEX_FONT_SIZE);
+        MathButton inverseButton = new MathButton();
+        inverseButton.createButton("A^{-1}", MathPageConstant.LATEX_FONT_SIZE);
 
         buttons.add(pulsButton);
         buttons.add(minusButton);
@@ -71,5 +77,9 @@ public class MathSymbolPanel extends SymbolPanel {
         buttons.add(combButton);
         buttons.add(modButton);
         buttons.add(equivButton);
+        buttons.add(matrixButton);
+        buttons.add(determinantButton);
+        buttons.add(transposeButton);
+        buttons.add(inverseButton);
     }
 }

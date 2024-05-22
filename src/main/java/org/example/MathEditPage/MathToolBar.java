@@ -16,7 +16,7 @@ public class MathToolBar extends JToolBar{
     private MathButton MathSymbolButton;
     private PageSwitchListener listener;
 
-    public void createToolBar(int width) {
+    public void createToolBar() {
         MathSymbolButton = new MathButton();
         MathSymbolButton.createButton("+-\\times\\div", MathPageConstant.LATEX_FONT_SIZE);
         MathSymbolButton.addActionListener(new ActionListener() {
@@ -54,7 +54,7 @@ public class MathToolBar extends JToolBar{
 
         setLayout(new FlowLayout(FlowLayout.CENTER));
         setFloatable(false);
-        setPreferredSize(new Dimension(width, getPreferredSize().height));
+        // setPreferredSize(new Dimension(width, getPreferredSize().height));
 
         validate();
         repaint();

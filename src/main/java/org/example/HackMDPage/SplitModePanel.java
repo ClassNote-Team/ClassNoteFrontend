@@ -19,8 +19,11 @@ public class SplitModePanel extends JPanel {
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,  new JScrollPane(input), new JScrollPane(display));
         splitPane.setResizeWeight(0.5);
 
+        display.setEditable(false);
+
         input.getDocument().addDocumentListener(new MyDocumentListener());
         input.setText(content);
+        input.setLineWrap(true);
         add(splitPane);
     }
 
@@ -52,5 +55,6 @@ public class SplitModePanel extends JPanel {
         String html = renderer.render(document);
         display.setContentType("text/html");
         display.setText(html);
+        System.out.println(html);
     }
 }

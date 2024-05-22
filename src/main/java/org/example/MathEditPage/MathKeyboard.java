@@ -26,27 +26,20 @@ public class MathKeyboard extends JPanel implements PageSwitchListener{
         scrollPane = new JScrollPane();
     }
 
-    public void createKeyboard(int width, int height) {
+    public void createKeyboard() {
         setLayout(new BorderLayout());
-        toolBar.createToolBar(width);
+        toolBar.createToolBar();
         toolBar.setMathButtonListener(this);
         add(toolBar, BorderLayout.NORTH);
 
 
-        mathSymbolPanel.createSymbolPanel(width, height - toolBar.getHeight());
-        calculusSymbolPanel.createSymbolPanel(width, height - toolBar.getHeight());
-        greekSymbolPanel.createSymbolPanel(width, height - toolBar.getHeight());
+        mathSymbolPanel.createSymbolPanel();
+        calculusSymbolPanel.createSymbolPanel();
+        greekSymbolPanel.createSymbolPanel();
 
         scrollPane.setViewportView(mathSymbolPanel);
 
         add(scrollPane, BorderLayout.CENTER);
-        int cols = width / mathSymbolPanel.getButtonPreferredSize();
-        int rows = mathSymbolPanel.getButtonCount() / cols;
-        if (rows * cols < mathSymbolPanel.getButtonCount()) {
-            rows++;
-        }
-        // System.out.println("MathKeyboard: " + getPreferredSize());
-        // setPreferredSize(new Dimension(width, 3 * mathSymbolPanel.getButtonPreferredSize()));
 
         System.out.println("MathKeyboard: " + getPreferredSize());
         revalidate();

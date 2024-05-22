@@ -10,6 +10,7 @@ public class InputModePanel extends JPanel {
         setLayout(new BorderLayout());
         textArea = new JTextArea();
         textArea.setText(content);
+        textArea.setLineWrap(true);
         add(new JScrollPane(textArea), BorderLayout.CENTER);
     }
 

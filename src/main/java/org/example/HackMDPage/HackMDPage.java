@@ -1,6 +1,9 @@
 package org.example.HackMDPage;
 
 import javax.swing.*;
+
+import org.example.MathEditPage.MathEditPage;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +13,10 @@ public class HackMDPage {
     private final JFrame frame;
     private JPanel contentPanel;
     private String content = "";
+    private JButton inputButton;
+    private JButton displayButton;
+    private JButton splitButton;
+    private JButton mathButton;
 
     public HackMDPage() {
         frame = new JFrame("HackMD Page");
@@ -35,35 +42,23 @@ public class HackMDPage {
         });
 
         // change part of the code
-        JButton inputButton = new JButton("Input Markdown");
-        JButton displayButton = new JButton("Display Page");
-        JButton splitButton = new JButton("Half Input/Display");
+        inputButton = new JButton("Input Markdown");
+        displayButton = new JButton("Display Page");
+        splitButton = new JButton("Half Input/Display");
+        mathButton = new JButton("Math");
 
         // Add action listeners to the buttons
-        inputButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateContent();
-                showInputMode();
-            }
-        });
-        displayButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showDisplayMode();
-            }
-        });
-        splitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateContent();
-                showSplitMode();
-            }
-        });
+        ButtonHandler eventHandler = new ButtonHandler();
+
+        inputButton.addActionListener(eventHandler);
+        displayButton.addActionListener(eventHandler);
+        splitButton.addActionListener(eventHandler);
+        mathButton.addActionListener(eventHandler);
 
         toolBar.add(inputButton);
         toolBar.add(displayButton);
         toolBar.add(splitButton);
+        toolBar.add(mathButton);
         frame.add(toolBar, BorderLayout.NORTH);
 
         // Show input mode by default
@@ -79,8 +74,6 @@ public class HackMDPage {
             content = ((InputModePanel) contentPanel).getContent();
 
         }
-
-
     }
 
     private void clearContent() {
@@ -120,5 +113,26 @@ public class HackMDPage {
         contentPanel = new SplitModePanel(content);
         frame.add(contentPanel, BorderLayout.CENTER);
         refreshPage();
+    }
+
+    private void openMathPage() {
+        MathEditPage mathEditPage = new MathEditPage();
+        mathEditPage.createAndShowGUI();
+    }
+    private class ButtonHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == inputButton) {
+                updateContent();
+                showInputMode();
+            } else if (e.getSource() == displayButton) {
+                showDisplayMode();
+            } else if (e.getSource() == splitButton) {
+                updateContent();
+                showSplitMode();
+            } else if (e.getSource() == mathButton) {
+                openMathPage();
+            }
+        }
     }
 }

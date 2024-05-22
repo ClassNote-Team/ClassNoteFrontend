@@ -1,6 +1,5 @@
 package org.example.MathEditPage.SymbolPanel;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -12,8 +11,8 @@ import org.example.MathEditPage.MathPageConstant;
 
 public abstract class SymbolPanel extends JPanel {
     private int preferredSize;
-    protected ArrayList<MathButton> buttons;
     private MathButtonListener listener;
+    protected ArrayList<MathButton> buttons;
 
     public SymbolPanel(){
         // super(new FlowLayout(FlowLayout.LEFT));
@@ -21,7 +20,7 @@ public abstract class SymbolPanel extends JPanel {
         preferredSize = 0;
     }
 
-    public void createSymbolPanel(int width, int height) {
+    public void createSymbolPanel() {
         setButton();
 
         for (MathButton button : buttons) {
@@ -50,8 +49,7 @@ public abstract class SymbolPanel extends JPanel {
         // System.out.println(getPreferredSize());
         // System.out.println(preferredSize);
 
-        setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        setPreferredSize(new Dimension(width, getPreferredSize().height));
+        setMaximumSize(getPreferredSize());
 
         revalidate();
         repaint();
@@ -76,5 +74,6 @@ public abstract class SymbolPanel extends JPanel {
             });
         }
     }
+
     protected abstract void setButton();
 }

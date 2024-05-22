@@ -1,30 +1,35 @@
 package org.example.MathEditPage;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JToolBar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class MathEditPage implements MathButtonListener {
 
     private JFrame frame;
     private JTextArea latexArea;
-    private JSplitPane splitPane;
-    private JSplitPane editPane;
+    private JPanel editPanel;
     private JScrollPane preview;
     private JScrollPane latexContent;
-    private JTextArea previewArea;
     private MathKeyboard keyboard;
     private LaTexPanel previewContent;
+    private JToolBar actionToolBar;
+    private JButton insertButton;
+    private JButton cleanButton;
 
     public void createAndShowGUI(){
         frame = new JFrame("JFrame with TextArea");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600); // 設定窗口的大小為 400x300 像素
+        frame.setLayout(new GridLayout(1, 2));
 
         setInputAndPreview();
 
@@ -33,39 +38,48 @@ public class MathEditPage implements MathButtonListener {
         frame.setVisible(true);
     }
 
+    private void setInputArea() {
+        latexContent = new JScrollPane(latexArea);
+        keyboard = new MathKeyboard();
+        keyboard.createKeyboard();
+        keyboard.setMathButtonListener(this);
+
+        editPanel = new JPanel();
+        editPanel.setLayout(new GridLayout(2, 1));
+        editPanel.add(latexContent);
+        editPanel.add(keyboard);
+    }
+
+    private void setPreviewArea() {
+        previewContent = new LaTexPanel();
+        previewContent.setLayout(new BorderLayout());
+        actionToolBar = new JToolBar();
+        insertButton = new JButton("Insert");
+        cleanButton = new JButton("Clean");
+
+        actionToolBar.setLayout(new BorderLayout());
+
+        actionToolBar.add(cleanButton, BorderLayout.WEST);
+        actionToolBar.add(insertButton, BorderLayout.EAST);
+
+        previewContent.add(actionToolBar, BorderLayout.SOUTH);
+        preview = new JScrollPane(previewContent);
+    }
+
     private void setInputAndPreview() {
-        DocumentChanged documentChanged = new DocumentChanged();
+        DocumentHandler documentHandler = new DocumentHandler();
 
         latexArea = new JTextArea();
         latexArea.setLineWrap(true);  // 啟用自動換行
-        latexArea.getDocument().addDocumentListener(documentChanged);
+        latexArea.getDocument().addDocumentListener(documentHandler);
 
-        previewArea = new JTextArea();
-        previewArea.setEditable(false);
-        previewArea.setLineWrap(true);  // 啟用自動換行
+        setInputArea();
+        setPreviewArea();
     }
 
     private void createSplitPane() {
-        // Create JScrollPane
-        latexContent = new JScrollPane(latexArea);
-        keyboard = new MathKeyboard();
-        keyboard.createKeyboard(frame.getWidth() / 2, frame.getHeight() / 3 * 2);
-        keyboard.setMathButtonListener(this);
-
-        previewContent = new LaTexPanel();
-        preview = new JScrollPane(previewContent);
-        editPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, latexContent, keyboard);
-        editPane.setDividerLocation(frame.getHeight() / 3);
-        editPane.setResizeWeight(0.3);
-        editPane.setEnabled(false);
-
-        // Create JSplitPane
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, editPane, preview);
-        splitPane.setDividerLocation(frame.getWidth() / 2);
-        splitPane.setResizeWeight(0.5);
-        splitPane.setEnabled(false);
-
-        frame.add(splitPane, BorderLayout.CENTER);
+        frame.add(editPanel);
+        frame.add(preview);
 
         frame.revalidate(); // Revalidate to update the frame
         frame.repaint(); // Repaint to update the frame
@@ -89,11 +103,11 @@ public class MathEditPage implements MathButtonListener {
 
     @Override
     public void onMathButtonPressed(String latex) {
-        latex = fixLatexString(latex);
+        if(!latex.contains("{bmatrix}") && !latex.contains("{pmatrix}") && !latex.contains("{vmatrix}")) latex = fixLatexString(latex);
         latexArea.insert(latex, latexArea.getCaretPosition());
     }
 
-    private class DocumentChanged implements DocumentListener {
+    private class DocumentHandler implements DocumentListener {
         @Override
         public void insertUpdate(DocumentEvent e) {
             if (e.getDocument() == latexArea.getDocument()){
