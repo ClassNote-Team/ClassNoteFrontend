@@ -1,4 +1,4 @@
-package org.example.HackMDPage;
+package org.example.HackMDPage.ModePanel;
 
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
@@ -46,6 +46,10 @@ public class SplitModePanel extends JPanel {
 
     public String getContent() {
         return input.getText();
+    }
+
+    public void insertContent(String content){
+        input.insert(content, input.getCaretPosition());
     }
 
     private void updateDisplay() {

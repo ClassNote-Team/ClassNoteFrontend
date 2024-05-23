@@ -41,7 +41,6 @@ public class MathKeyboard extends JPanel implements PageSwitchListener{
 
         add(scrollPane, BorderLayout.CENTER);
 
-        System.out.println("MathKeyboard: " + getPreferredSize());
         revalidate();
         repaint();
     }
@@ -60,7 +59,7 @@ public class MathKeyboard extends JPanel implements PageSwitchListener{
         repaint();
     }
 
-    public void setMathButtonListener(MathButtonListener listener) {
+    public void setMathButtonListener(MathButtonHandler listener) {
         mathSymbolPanel.setMathButtonListener(listener);
         calculusSymbolPanel.setMathButtonListener(listener);
         greekSymbolPanel.setMathButtonListener(listener);

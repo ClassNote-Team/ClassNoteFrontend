@@ -1,6 +1,6 @@
 package org.example.MathEditPage;
 
-public interface MathButtonListener {
+public interface MathButtonHandler {
     void onMathButtonPressed(String latex);
 }
 

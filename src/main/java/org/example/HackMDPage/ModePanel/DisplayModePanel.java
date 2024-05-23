@@ -1,4 +1,4 @@
-package org.example.HackMDPage;
+package org.example.HackMDPage.ModePanel;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;

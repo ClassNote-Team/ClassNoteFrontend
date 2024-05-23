@@ -1,4 +1,4 @@
-package org.example.HackMDPage;
+package org.example.HackMDPage.ModePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,5 +16,9 @@ public class InputModePanel extends JPanel {
 
     public String getContent() {
         return textArea.getText();
+    }
+
+    public void insertContent(String content){
+        textArea.insert(content, textArea.getCaretPosition());
     }
 }

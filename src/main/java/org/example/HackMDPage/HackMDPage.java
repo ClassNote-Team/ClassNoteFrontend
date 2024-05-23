@@ -2,13 +2,17 @@ package org.example.HackMDPage;
 
 import javax.swing.*;
 
+import org.example.HackMDPage.ModePanel.DisplayModePanel;
+import org.example.HackMDPage.ModePanel.InputModePanel;
+import org.example.HackMDPage.ModePanel.SplitModePanel;
 import org.example.MathEditPage.MathEditPage;
+import org.example.MathEditPage.Manager.LaTeXManager;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HackMDPage {
+public class HackMDPage implements InsertButtonHandler {
 
     private final JFrame frame;
     private JPanel contentPanel;
@@ -72,7 +76,6 @@ public class HackMDPage {
             content = ((SplitModePanel) contentPanel).getContent();
         } else if (contentPanel instanceof InputModePanel) {
             content = ((InputModePanel) contentPanel).getContent();
-
         }
     }
 
@@ -118,7 +121,22 @@ public class HackMDPage {
     private void openMathPage() {
         MathEditPage mathEditPage = new MathEditPage();
         mathEditPage.createAndShowGUI();
+        mathEditPage.setInsertHandler(this);
     }
+
+    @Override
+    public void onButtonPressed(String latex){
+        latex = "$" + latex + "$";
+        if (contentPanel instanceof InputModePanel){
+            ((InputModePanel)contentPanel).insertContent(latex);
+            LaTeXManager latexManager = new LaTeXManager();
+            latexManager.render(latex);
+        }
+        else if (contentPanel instanceof SplitModePanel){
+            ((SplitModePanel)contentPanel).insertContent(latex);
+        }
+    }
+
     private class ButtonHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {

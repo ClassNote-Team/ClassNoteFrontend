@@ -9,10 +9,12 @@ import javax.swing.JToolBar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.example.HackMDPage.InsertButtonHandler;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-public class MathEditPage implements MathButtonListener {
+public class MathEditPage implements MathButtonHandler {
 
     private JFrame frame;
     private JTextArea latexArea;
@@ -24,6 +26,7 @@ public class MathEditPage implements MathButtonListener {
     private JToolBar actionToolBar;
     private JButton insertButton;
     private JButton cleanButton;
+    private InsertButtonHandler handler;
 
     public void createAndShowGUI(){
         frame = new JFrame("JFrame with TextArea");
@@ -56,6 +59,14 @@ public class MathEditPage implements MathButtonListener {
         actionToolBar = new JToolBar();
         insertButton = new JButton("Insert");
         cleanButton = new JButton("Clean");
+
+        insertButton.addActionListener(e -> {
+            handler.onButtonPressed(latexArea.getText());
+            frame.dispose();
+        });
+        cleanButton.addActionListener(e -> {
+            frame.dispose();
+        });
 
         actionToolBar.setLayout(new BorderLayout());
 
@@ -101,6 +112,10 @@ public class MathEditPage implements MathButtonListener {
         return fixedLatex;
     }
 
+    public void setInsertHandler(InsertButtonHandler handler){
+        this.handler = handler;
+    }
+
     @Override
     public void onMathButtonPressed(String latex) {
         if(!latex.contains("{bmatrix}") && !latex.contains("{pmatrix}") && !latex.contains("{vmatrix}")) latex = fixLatexString(latex);
@@ -126,7 +141,6 @@ public class MathEditPage implements MathButtonListener {
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            // This method is called when the style or attributes of the text are changed.
             System.out.println("Text style or attributes changed");
         }
     }
