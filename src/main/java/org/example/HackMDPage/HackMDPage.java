@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import org.example.HackMDPage.ModePanel.DisplayModePanel;
 import org.example.HackMDPage.ModePanel.InputModePanel;
+import org.example.HackMDPage.ModePanel.ModePanel;
 import org.example.HackMDPage.ModePanel.SplitModePanel;
 import org.example.MathEditPage.MathEditPage;
 import org.example.MathEditPage.Manager.LaTeXManager;
@@ -15,7 +16,7 @@ import java.awt.event.ActionListener;
 public class HackMDPage implements InsertButtonHandler {
 
     private final JFrame frame;
-    private JPanel contentPanel;
+    private ModePanel contentPanel;
     private String content = "";
     private JButton inputButton;
     private JButton displayButton;
@@ -73,9 +74,9 @@ public class HackMDPage implements InsertButtonHandler {
 
     private void updateContent() {
         if (contentPanel instanceof SplitModePanel) {
-            content = ((SplitModePanel) contentPanel).getContent();
+            content = contentPanel.getContent();
         } else if (contentPanel instanceof InputModePanel) {
-            content = ((InputModePanel) contentPanel).getContent();
+            content = contentPanel.getContent();
         }
     }
 
@@ -128,12 +129,10 @@ public class HackMDPage implements InsertButtonHandler {
     public void onButtonPressed(String latex){
         latex = "$" + latex + "$";
         if (contentPanel instanceof InputModePanel){
-            ((InputModePanel)contentPanel).insertContent(latex);
-            LaTeXManager latexManager = new LaTeXManager();
-            latexManager.render(latex);
+            contentPanel.insertContent(latex);
         }
         else if (contentPanel instanceof SplitModePanel){
-            ((SplitModePanel)contentPanel).insertContent(latex);
+            contentPanel.insertContent(latex);
         }
     }
 
@@ -142,8 +141,10 @@ public class HackMDPage implements InsertButtonHandler {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == inputButton) {
                 updateContent();
+                System.out.println(content);
                 showInputMode();
             } else if (e.getSource() == displayButton) {
+                updateContent();
                 showDisplayMode();
             } else if (e.getSource() == splitButton) {
                 updateContent();

@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -28,7 +29,29 @@ public class LaTeXManager {
         return sb.toString();
     }
 
-    public void render(String latex){
+    public String replaceToken(String content) {
+        boolean inMath = false;
+        ArrayList<String> imageNames = new ArrayList<>();
+
+        // call API to get all image names
+
+        int begin = 0, end = 0, count = 0;
+        for (int i = 0; i < content.length(); ++i) {
+            if (content.charAt(i) == '$') {
+                inMath = !inMath;
+                if (inMath) {
+                    begin = i;
+                } else {
+                    end = i;
+                    String path = MathPageConstant.IMAGE_PATH + imageNames.get(count++);
+                    content.replace(content.substring(begin, end), path);
+                }
+            }
+        }
+        return content;
+    }
+
+    public String render(String latex){
         TeXFormula formula = new TeXFormula(latex);
         TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, MathPageConstant.LATEX_FONT_SIZE);
         BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -46,11 +69,14 @@ public class LaTeXManager {
 
         g2.dispose();
 
+        String path = MathPageConstant.IMAGE_PATH + generateRandomString(10) + ".png";
         try {
-            ImageIO.write(image, "png", new File(MathPageConstant.IMAGE_PATH + generateRandomString(10) + ".png"));
+            ImageIO.write(image, "png", new File(path));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return path;
     }
 
     public void uploadImage(){
