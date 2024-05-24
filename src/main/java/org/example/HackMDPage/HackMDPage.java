@@ -1,15 +1,29 @@
 package org.example.HackMDPage;
 
 import javax.swing.*;
+
+import org.example.HackMDPage.ModePanel.DisplayModePanel;
+import org.example.HackMDPage.ModePanel.InputModePanel;
+import org.example.HackMDPage.ModePanel.ModePanel;
+import org.example.HackMDPage.ModePanel.SplitModePanel;
+import org.example.MathEditPage.MathEditPage;
+import org.example.base.BaseButton;
+import org.example.base.BaseToolBar;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HackMDPage {
+public class HackMDPage implements InsertButtonHandler {
 
     private final JFrame frame;
-    private JPanel contentPanel;
+    private final int buttonMargin = 3;
+    private ModePanel contentPanel;
     private String content = "";
+    private BaseButton inputButton;
+    private BaseButton displayButton;
+    private BaseButton splitButton;
+    private BaseButton mathButton;
 
     public HackMDPage() {
         frame = new JFrame("HackMD Page");
@@ -17,9 +31,10 @@ public class HackMDPage {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create toolbar
-        JToolBar toolBar = new JToolBar();
-        JButton fileButton = new JButton("File");
+        BaseToolBar toolBar = new BaseToolBar();
+        BaseButton fileButton = new BaseButton("File");
         toolBar.add(fileButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         fileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,35 +50,27 @@ public class HackMDPage {
         });
 
         // change part of the code
-        JButton inputButton = new JButton("Input Markdown");
-        JButton displayButton = new JButton("Display Page");
-        JButton splitButton = new JButton("Half Input/Display");
+        inputButton = new BaseButton("Input Markdown");
+        displayButton = new BaseButton("Display Page");
+        splitButton = new BaseButton("Half Input/Display");
+        mathButton = new BaseButton("Math");
 
         // Add action listeners to the buttons
-        inputButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateContent();
-                showInputMode();
-            }
-        });
-        displayButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showDisplayMode();
-            }
-        });
-        splitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateContent();
-                showSplitMode();
-            }
-        });
+        ButtonHandler eventHandler = new ButtonHandler();
+
+        inputButton.addActionListener(eventHandler);
+        displayButton.addActionListener(eventHandler);
+        splitButton.addActionListener(eventHandler);
+        mathButton.addActionListener(eventHandler);
 
         toolBar.add(inputButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(displayButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(splitButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
+        toolBar.add(mathButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         frame.add(toolBar, BorderLayout.NORTH);
 
         // Show input mode by default
@@ -74,13 +81,10 @@ public class HackMDPage {
 
     private void updateContent() {
         if (contentPanel instanceof SplitModePanel) {
-            content = ((SplitModePanel) contentPanel).getContent();
+            content = contentPanel.getContent();
         } else if (contentPanel instanceof InputModePanel) {
-            content = ((InputModePanel) contentPanel).getContent();
-
+            content = contentPanel.getContent();
         }
-
-
     }
 
     private void clearContent() {
@@ -120,5 +124,41 @@ public class HackMDPage {
         contentPanel = new SplitModePanel(content);
         frame.add(contentPanel, BorderLayout.CENTER);
         refreshPage();
+    }
+
+    private void openMathPage() {
+        MathEditPage mathEditPage = new MathEditPage();
+        mathEditPage.createAndShowGUI();
+        mathEditPage.setInsertHandler(this);
+    }
+
+    @Override
+    public void onButtonPressed(String latex){
+        latex = "$" + latex + "$";
+        if (contentPanel instanceof InputModePanel){
+            contentPanel.insertContent(latex);
+        }
+        else if (contentPanel instanceof SplitModePanel){
+            contentPanel.insertContent(latex);
+        }
+    }
+
+    private class ButtonHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == inputButton) {
+                updateContent();
+                System.out.println(content);
+                showInputMode();
+            } else if (e.getSource() == displayButton) {
+                updateContent();
+                showDisplayMode();
+            } else if (e.getSource() == splitButton) {
+                updateContent();
+                showSplitMode();
+            } else if (e.getSource() == mathButton) {
+                openMathPage();
+            }
+        }
     }
 }
