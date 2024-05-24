@@ -1,5 +1,6 @@
 package org.example.PaintPage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import org.example.PaintPage.PaintConstant.PaintObjectType;
@@ -7,11 +8,16 @@ import org.example.PaintPage.PaintConstant.PaintObjectType;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class DrawPanel extends JPanel {
     private ArrayList<PaintObject> paintObjects = new ArrayList<PaintObject>();
-    private int paintObjectCount;
+    private BufferedImage image;
     private PaintObject currentPaintObject;
     private TopBar topBar;
     public DrawPanel(TopBar topBar) {
@@ -20,19 +26,31 @@ public class DrawPanel extends JPanel {
         MouseHandler mouseHandler = new MouseHandler();
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
+        image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
     }
 
     public void clearDrawing() {
         paintObjects.clear();
+        currentPaintObject = null;
+        repaint();
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+        Graphics g2 = image.createGraphics();
         for(PaintObject paintObject : paintObjects) {
-            paintObject.draw(g);
+            paintObject.draw(g2);
         }
         if(currentPaintObject != null) {
-            currentPaintObject.draw(g);
+            currentPaintObject.draw(g2);
         }
+        g.drawImage(image, 0, 0, null);
+    }
+    public void saveImage() throws IOException {
+        // TODO
+        System.out.println("Saving image");
+        FileOutputStream os = new FileOutputStream("src/main/java/org/example/PaintPage/img/output.png");
+        ImageIO.write(image, "PNG", os);
     }
     private class MouseHandler extends MouseAdapter {
         // creates and sets the initial position for the new shape

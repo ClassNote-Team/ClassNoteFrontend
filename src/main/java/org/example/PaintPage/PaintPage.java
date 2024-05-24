@@ -11,11 +11,13 @@ public class PaintPage {
 
         TopBar topBar = new TopBar();
         DrawPanel drawPanel = new DrawPanel(topBar);
+        ButtomBar buttomBar = new ButtomBar(drawPanel);
         frame.add(topBar, BorderLayout.NORTH);
         frame.add(drawPanel, BorderLayout.CENTER);
+        frame.add(buttomBar, BorderLayout.SOUTH);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600); // 設定窗口的大小為 400x300 像素
+        frame.setSize(800, 600); 
         frame.setVisible(true);
     }
 }
