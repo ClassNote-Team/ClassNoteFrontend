@@ -1,5 +1,6 @@
 package org.example.MathEditPage;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.example.HackMDPage.InsertButtonHandler;
+import org.example.base.BaseButton;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -24,12 +26,12 @@ public class MathEditPage implements MathButtonHandler {
     private MathKeyboard keyboard;
     private LaTexPanel previewContent;
     private JToolBar actionToolBar;
-    private JButton insertButton;
-    private JButton cleanButton;
+    private BaseButton insertButton;
+    private BaseButton cleanButton;
     private InsertButtonHandler handler;
 
     public void createAndShowGUI(){
-        frame = new JFrame("JFrame with TextArea");
+        frame = new JFrame("Math Keyboard");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800, 600); // 設定窗口的大小為 400x300 像素
         frame.setLayout(new GridLayout(1, 2));
@@ -43,6 +45,7 @@ public class MathEditPage implements MathButtonHandler {
 
     private void setInputArea() {
         latexContent = new JScrollPane(latexArea);
+        latexContent.setBorder(BorderFactory.createEmptyBorder());
         keyboard = new MathKeyboard();
         keyboard.createKeyboard();
         keyboard.setMathButtonListener(this);
@@ -57,8 +60,8 @@ public class MathEditPage implements MathButtonHandler {
         previewContent = new LaTexPanel();
         previewContent.setLayout(new BorderLayout());
         actionToolBar = new JToolBar();
-        insertButton = new JButton("Insert");
-        cleanButton = new JButton("Clean");
+        insertButton = new BaseButton("Insert");
+        cleanButton = new BaseButton("Clean");
 
         insertButton.addActionListener(e -> {
             handler.onButtonPressed(latexArea.getText());

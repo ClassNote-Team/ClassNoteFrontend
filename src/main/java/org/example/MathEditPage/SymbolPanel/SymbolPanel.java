@@ -1,8 +1,11 @@
 package org.example.MathEditPage.SymbolPanel;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import org.example.MathEditPage.MathButton;
@@ -17,6 +20,7 @@ public abstract class SymbolPanel extends JPanel {
     public SymbolPanel(){
         buttons = new ArrayList<MathButton>();
         preferredSize = 0;
+        setBorder(BorderFactory.createEmptyBorder());
     }
 
     public void createSymbolPanel() {

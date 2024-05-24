@@ -1,22 +1,29 @@
 package org.example.MathEditPage;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JToolBar;
-
 import org.example.MathEditPage.MathPageConstant.PAGE_MODE;
+import org.example.base.BaseToolBar;
 
-public class MathToolBar extends JToolBar{
+public class MathToolBar extends BaseToolBar {
 
     private MathButton greekSymbolButton;
     private MathButton calculusButton;
     private MathButton MathSymbolButton;
-    private PageSwitchListener listener;
+    private PanelSwitchListener listener;
+
+    public MathToolBar() {
+        setBorderPainted(false);
+    }
 
     public void createToolBar() {
-        MathSymbolButton = new MathButton();
+        MathSymbolButton = new PanelSwitchButton();
         MathSymbolButton.createButton("+-\\times\\div", MathPageConstant.LATEX_FONT_SIZE);
         MathSymbolButton.addActionListener(new ActionListener() {
             @Override
@@ -26,8 +33,9 @@ public class MathToolBar extends JToolBar{
             }
         });
         add(MathSymbolButton);
+        addSeparator(new Dimension(0, 0));
 
-        greekSymbolButton = new MathButton();
+        greekSymbolButton = new PanelSwitchButton();
         greekSymbolButton.createButton("\\alpha\\beta\\gamma\\delta", MathPageConstant.LATEX_FONT_SIZE);
         greekSymbolButton.addActionListener(new ActionListener() {
             @Override
@@ -38,8 +46,9 @@ public class MathToolBar extends JToolBar{
             }
         });
         add(greekSymbolButton);
+        addSeparator(new Dimension(0, 0));
 
-        calculusButton = new MathButton();
+        calculusButton = new PanelSwitchButton();
         calculusButton.createButton("\\int\\sum\\prod\\bigcup", MathPageConstant.LATEX_FONT_SIZE / 2);
         calculusButton.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +60,7 @@ public class MathToolBar extends JToolBar{
         add(calculusButton);
 
 
-        setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new GridLayout(1, 5));
         setFloatable(false);
         // setPreferredSize(new Dimension(width, getPreferredSize().height));
 
@@ -59,7 +68,7 @@ public class MathToolBar extends JToolBar{
         repaint();
     }
 
-    public void setMathButtonListener(PageSwitchListener listener) {
+    public void setMathButtonListener(PanelSwitchListener listener) {
         this.listener = listener;
     }
 }

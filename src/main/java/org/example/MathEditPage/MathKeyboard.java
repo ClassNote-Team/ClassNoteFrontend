@@ -2,6 +2,7 @@ package org.example.MathEditPage;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -10,7 +11,7 @@ import org.example.MathEditPage.SymbolPanel.CalculusSymbolPanel;
 import org.example.MathEditPage.SymbolPanel.GreekSymbolPanel;
 import org.example.MathEditPage.SymbolPanel.MathSymbolPanel;
 
-public class MathKeyboard extends JPanel implements PageSwitchListener{
+public class MathKeyboard extends JPanel implements PanelSwitchListener {
 
     private MathToolBar toolBar;
     private MathSymbolPanel mathSymbolPanel;
@@ -38,6 +39,7 @@ public class MathKeyboard extends JPanel implements PageSwitchListener{
         greekSymbolPanel.createSymbolPanel();
 
         scrollPane.setViewportView(mathSymbolPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         add(scrollPane, BorderLayout.CENTER);
 
@@ -55,6 +57,7 @@ public class MathKeyboard extends JPanel implements PageSwitchListener{
         } else if (mode == PAGE_MODE.CALCULUS) {
             scrollPane.setViewportView(calculusSymbolPanel);
         }
+
         revalidate();
         repaint();
     }

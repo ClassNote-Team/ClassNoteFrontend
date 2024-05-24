@@ -7,7 +7,8 @@ import org.example.HackMDPage.ModePanel.InputModePanel;
 import org.example.HackMDPage.ModePanel.ModePanel;
 import org.example.HackMDPage.ModePanel.SplitModePanel;
 import org.example.MathEditPage.MathEditPage;
-import org.example.MathEditPage.Manager.LaTeXManager;
+import org.example.base.BaseButton;
+import org.example.base.BaseToolBar;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,12 +17,13 @@ import java.awt.event.ActionListener;
 public class HackMDPage implements InsertButtonHandler {
 
     private final JFrame frame;
+    private final int buttonMargin = 3;
     private ModePanel contentPanel;
     private String content = "";
-    private JButton inputButton;
-    private JButton displayButton;
-    private JButton splitButton;
-    private JButton mathButton;
+    private BaseButton inputButton;
+    private BaseButton displayButton;
+    private BaseButton splitButton;
+    private BaseButton mathButton;
 
     public HackMDPage() {
         frame = new JFrame("HackMD Page");
@@ -29,9 +31,10 @@ public class HackMDPage implements InsertButtonHandler {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create toolbar
-        JToolBar toolBar = new JToolBar();
-        JButton fileButton = new JButton("File");
+        BaseToolBar toolBar = new BaseToolBar();
+        BaseButton fileButton = new BaseButton("File");
         toolBar.add(fileButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         fileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,10 +50,10 @@ public class HackMDPage implements InsertButtonHandler {
         });
 
         // change part of the code
-        inputButton = new JButton("Input Markdown");
-        displayButton = new JButton("Display Page");
-        splitButton = new JButton("Half Input/Display");
-        mathButton = new JButton("Math");
+        inputButton = new BaseButton("Input Markdown");
+        displayButton = new BaseButton("Display Page");
+        splitButton = new BaseButton("Half Input/Display");
+        mathButton = new BaseButton("Math");
 
         // Add action listeners to the buttons
         ButtonHandler eventHandler = new ButtonHandler();
@@ -61,9 +64,13 @@ public class HackMDPage implements InsertButtonHandler {
         mathButton.addActionListener(eventHandler);
 
         toolBar.add(inputButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(displayButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(splitButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(mathButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
         frame.add(toolBar, BorderLayout.NORTH);
 
         // Show input mode by default
