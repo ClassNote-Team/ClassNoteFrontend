@@ -17,6 +17,7 @@ public class FileButtonMenu {
                 JMenuItem openMenuItem = new JMenuItem("開啟舊檔");
                 JMenuItem saveMenuItem = new JMenuItem("儲存檔案");
 
+
                 newMenuItem.addActionListener(listener);
                 openMenuItem.addActionListener(listener);
                 saveMenuItem.addActionListener(listener);
