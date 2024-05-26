@@ -1,11 +1,12 @@
 package org.example;
 
-import org.example.HackMDPage.HackMDPage;
+import org.example.HackMDPage.MarkdownPage;
+// import org.example.MathEditPage.MathEditPage;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        HackMDPage hackMDPage = new HackMDPage();
+        MarkdownPage hackMDPage = new MarkdownPage();
+        // MathEditPage keyboard = new MathEditPage();
+        // keyboard.createAndShowGUI();
     }
 }
