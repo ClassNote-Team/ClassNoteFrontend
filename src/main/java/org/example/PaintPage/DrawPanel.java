@@ -39,10 +39,10 @@ public class DrawPanel extends JPanel {
         image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
         Graphics g2 = image.createGraphics();
         for(PaintObject paintObject : paintObjects) {
-            paintObject.draw(g2);
+            paintObject.draw((Graphics2D)g2);
         }
         if(currentPaintObject != null) {
-            currentPaintObject.draw(g2);
+            currentPaintObject.draw((Graphics2D)g2);
         }
         g.drawImage(image, 0, 0, null);
     }
@@ -56,10 +56,14 @@ public class DrawPanel extends JPanel {
         // creates and sets the initial position for the new shape
         public void mousePressed(MouseEvent e) {
             if(topBar.getCurrentType() == PaintObjectType.RECTANGLE) {
-                currentPaintObject = new Rectangle(e.getX(), e.getY(), e.getX(), e.getY(), topBar.getCurrentColor());
+                currentPaintObject = new Rectangle(e.getX(), e.getY(), e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize());
             } else if(topBar.getCurrentType() == PaintObjectType.DOT) {
-                paintObjects.add(new Dot(e.getX(), e.getY(), topBar.getCurrentColor()));
+                paintObjects.add(new Dot(e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize()));
                 repaint();
+            }else if(topBar.getCurrentType() == PaintObjectType.OVAL) {
+                currentPaintObject = new Oval(e.getX(), e.getY(), e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize());
+            }else if(topBar.getCurrentType() == PaintObjectType.LINE) {
+                currentPaintObject = new Line(e.getX(), e.getY(), e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize());
             }
         } // end method mousePressed
 
@@ -69,6 +73,12 @@ public class DrawPanel extends JPanel {
                 ((Rectangle) currentPaintObject).setX2(e.getX());
                 ((Rectangle) currentPaintObject).setY2(e.getY());
                 paintObjects.add(currentPaintObject);
+            }else if(topBar.getCurrentType() == PaintObjectType.OVAL) {
+                ((Oval) currentPaintObject).setX2(e.getX());
+                ((Oval) currentPaintObject).setY2(e.getY());
+                paintObjects.add(currentPaintObject);
+            }else if(topBar.getCurrentType() == PaintObjectType.LINE) {
+                paintObjects.add(new Line(((Line) currentPaintObject).getX1(), ((Line) currentPaintObject).getY1(), e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize()));
             }
             repaint();
         } // end method mouseReleased
@@ -82,7 +92,14 @@ public class DrawPanel extends JPanel {
                 ((Rectangle) currentPaintObject).setY2(e.getY());
             }
             else if(topBar.getCurrentType() == PaintObjectType.DOT) {
-                paintObjects.add(new Dot(e.getX(), e.getY(), topBar.getCurrentColor()));
+                paintObjects.add(new Dot(e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize()));
+            }
+            else if(topBar.getCurrentType() == PaintObjectType.OVAL) {
+                ((Oval) currentPaintObject).setX2(e.getX());
+                ((Oval) currentPaintObject).setY2(e.getY());
+            }
+            else if(topBar.getCurrentType() == PaintObjectType.LINE) {
+                currentPaintObject = new Line(((Line) currentPaintObject).getX1(), ((Line) currentPaintObject).getY1(), e.getX(), e.getY(), topBar.getCurrentColor(), topBar.getObjectSize());
             }
             repaint();
         } // end method mouseDragged

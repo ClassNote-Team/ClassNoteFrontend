@@ -14,8 +14,8 @@ public class Dot extends PaintObject{
         setX(x);
         setY(y);
     }
-    public Dot(int x, int y, Color c){
-        super(c);
+    public Dot(int x, int y, Color c, int objectSize){
+        super(c, objectSize);
         setX(x);
         setY(y);
     }
@@ -31,8 +31,9 @@ public class Dot extends PaintObject{
     public void setY(int y){
         this.y = y;
     }
-    public void draw(Graphics g){
+    public void draw(Graphics2D g){
         g.setColor(getColor());
-        g.fillOval(getX(), getY(), 10, 10);
+        int objectSize = getObjectSize();
+        g.fillOval(getX() - (objectSize/2), getY() - (objectSize/2), objectSize, objectSize);
     }
 }

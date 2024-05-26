@@ -2,33 +2,18 @@ package org.example.PaintPage;
 
 import java.awt.*;
 
-public class Rectangle extends PaintObject{
+public class Line extends PaintObject{
     private int x1; // x coordinate of first endpoint
     private int y1; // y coordinate of first endpoint
     private int x2; // x coordinate of second endpoint
     private int y2; // y coordinate of second endpoint
-    public Rectangle() {
-        super();
-        setX1(0); // set x coordinate of first endpoint
-        setY1(0); // set y coordinate of first endpoint
-        setX2(0); // set x coordinate of second endpoint
-        setY2(0); // set y coordinate of second endpoint
-    }
-    public Rectangle(int x1, int y1, int x2, int y2, Color color, int objectSize) {
+    public Line(int x1, int y1, int x2, int y2, Color color, int objectSize) {
         super(color, objectSize);
         setX1(x1); // set x coordinate of first endpoint
         setY1(y1); // set y coordinate of first endpoint
         setX2(x2); // set x coordinate of second endpoint
         setY2(y2); // set y coordinate of second endpoint
     }
-
-    public Rectangle(int x1, int y1, int x2, int y2) {
-        setX1(x1); // set x coordinate of first endpoint
-        setY1(y1); // set y coordinate of first endpoint
-        setX2(x2); // set x coordinate of second endpoint
-        setY2(y2); // set y coordinate of second endpoint
-    }
-
     public void setX1(int x1) {
         this.x1 = (Math.max(x1, 0));
     }
@@ -53,24 +38,10 @@ public class Rectangle extends PaintObject{
     public int getY2() {
         return y2;
     }
-    public int getUpperLeftX() {
-        return Math.min(getX1(), getX2());
-    }
-    public int getUpperLeftY() {
-        return Math.min(getY1(), getY2());
-    }
-    public int getWidth() {
-        return Math.abs(getX2() - getX1());
-    }
-    public int getHeight() {
-        return Math.abs(getY2() - getY1());
-    }
-    @Override
     public void draw(Graphics2D g){
         g.setColor(getColor());
-        
         float thickness = getObjectSize();
         g.setStroke(new BasicStroke(thickness));
-        g.drawRect(getUpperLeftX(), getUpperLeftY(), getWidth(), getHeight());
+        g.drawLine(getX1(), getY1(), getX2(), getY2());
     }
 }
