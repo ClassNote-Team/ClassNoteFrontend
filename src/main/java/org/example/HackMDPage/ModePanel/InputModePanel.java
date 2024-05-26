@@ -2,6 +2,8 @@ package org.example.HackMDPage.ModePanel;
 
 import javax.swing.*;
 
+import org.example.base.BaseScrollBar;
+
 import java.awt.*;
 
 public class InputModePanel extends ModePanel {
@@ -10,7 +12,10 @@ public class InputModePanel extends ModePanel {
         setLayout(new BorderLayout());
         input.setText(content);
         input.setLineWrap(true);
-        add(new JScrollPane(input), BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(input);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setVerticalScrollBar(new BaseScrollBar(JScrollBar.VERTICAL));
+        add(scrollPane, BorderLayout.CENTER);
     }
 
 }

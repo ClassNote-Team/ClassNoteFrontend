@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HackMDPage implements InsertButtonHandler {
+public class MarkdownPage implements InsertButtonHandler {
 
     private final JFrame frame;
     private final int buttonMargin = 3;
@@ -25,8 +25,8 @@ public class HackMDPage implements InsertButtonHandler {
     private BaseButton splitButton;
     private BaseButton mathButton;
 
-    public HackMDPage() {
-        frame = new JFrame("HackMD Page");
+    public MarkdownPage() {
+        frame = new JFrame("Markdown Page");
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

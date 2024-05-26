@@ -30,24 +30,7 @@ public class LaTeXManager {
     }
 
     public String replaceToken(String content) {
-        boolean inMath = false;
-        ArrayList<String> imageNames = new ArrayList<>();
-
-        // call API to get all image names
-
-        int begin = 0, end = 0, count = 0;
-        for (int i = 0; i < content.length(); ++i) {
-            if (content.charAt(i) == '$') {
-                inMath = !inMath;
-                if (inMath) {
-                    begin = i;
-                } else {
-                    end = i;
-                    String path = MathPageConstant.IMAGE_PATH + imageNames.get(count++);
-                    content.replace(content.substring(begin, end), path);
-                }
-            }
-        }
+        //todo
         return content;
     }
 
@@ -79,7 +62,4 @@ public class LaTeXManager {
         return path;
     }
 
-    public void uploadImage(){
-
-    }
 }

@@ -1,5 +1,7 @@
 package org.example.HackMDPage.ModePanel;
 
+import java.awt.Font;
+
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -16,6 +18,8 @@ public class ModePanel extends JPanel{
     public ModePanel() {
         input = new JTextArea();
         display = new JEditorPane();
+        Font font = new Font("Arial", Font.PLAIN, 14);
+        input.setFont(font);
     }
 
     public String getContent() {
