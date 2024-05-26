@@ -4,6 +4,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
@@ -12,6 +13,8 @@ import javax.swing.event.DocumentListener;
 
 import org.example.HackMDPage.InsertButtonHandler;
 import org.example.base.BaseButton;
+import org.example.base.BaseScrollBar;
+import org.example.base.BaseToolBar;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -25,7 +28,7 @@ public class MathEditPage implements MathButtonHandler {
     private JScrollPane latexContent;
     private MathKeyboard keyboard;
     private LaTexPanel previewContent;
-    private JToolBar actionToolBar;
+    private BaseToolBar actionToolBar;
     private BaseButton insertButton;
     private BaseButton cleanButton;
     private InsertButtonHandler handler;
@@ -46,6 +49,7 @@ public class MathEditPage implements MathButtonHandler {
     private void setInputArea() {
         latexContent = new JScrollPane(latexArea);
         latexContent.setBorder(BorderFactory.createEmptyBorder());
+        latexContent.setVerticalScrollBar(new BaseScrollBar(JScrollBar.VERTICAL));
         keyboard = new MathKeyboard();
         keyboard.createKeyboard();
         keyboard.setMathButtonListener(this);
@@ -59,7 +63,7 @@ public class MathEditPage implements MathButtonHandler {
     private void setPreviewArea() {
         previewContent = new LaTexPanel();
         previewContent.setLayout(new BorderLayout());
-        actionToolBar = new JToolBar();
+        actionToolBar = new BaseToolBar();
         insertButton = new BaseButton("Insert");
         cleanButton = new BaseButton("Clean");
 
@@ -78,6 +82,8 @@ public class MathEditPage implements MathButtonHandler {
 
         previewContent.add(actionToolBar, BorderLayout.SOUTH);
         preview = new JScrollPane(previewContent);
+        preview.setBorder(BorderFactory.createEmptyBorder());
+        preview.setVerticalScrollBar(new BaseScrollBar(JScrollBar.VERTICAL));
     }
 
     private void setInputAndPreview() {

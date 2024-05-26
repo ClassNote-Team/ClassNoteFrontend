@@ -1,11 +1,11 @@
 package org.example;
 
-import org.example.HackMDPage.HackMDPage;
+import org.example.HackMDPage.MarkdownPage;
 // import org.example.MathEditPage.MathEditPage;
 
 public class Main {
     public static void main(String[] args) {
-        HackMDPage hackMDPage = new HackMDPage();
+        MarkdownPage hackMDPage = new MarkdownPage();
         // MathEditPage keyboard = new MathEditPage();
         // keyboard.createAndShowGUI();
     }

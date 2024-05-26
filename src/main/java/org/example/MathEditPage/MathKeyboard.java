@@ -4,12 +4,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import org.example.MathEditPage.MathPageConstant.PAGE_MODE;
 import org.example.MathEditPage.SymbolPanel.CalculusSymbolPanel;
 import org.example.MathEditPage.SymbolPanel.GreekSymbolPanel;
 import org.example.MathEditPage.SymbolPanel.MathSymbolPanel;
+import org.example.base.BaseScrollBar;
 
 public class MathKeyboard extends JPanel implements PanelSwitchListener {
 
@@ -40,6 +42,7 @@ public class MathKeyboard extends JPanel implements PanelSwitchListener {
 
         scrollPane.setViewportView(mathSymbolPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setVerticalScrollBar(new BaseScrollBar(JScrollBar.VERTICAL));
 
         add(scrollPane, BorderLayout.CENTER);
 
