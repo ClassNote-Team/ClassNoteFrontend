@@ -8,4 +8,6 @@ public class MathPageConstant {
         GREEK,
         CALCULUS
     }
+    public static final int GRIDLAYOUT_ROWS = 6;
+    public static final String IMAGE_PATH = "./src/main/resources/img/";
 }

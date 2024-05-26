@@ -2,59 +2,72 @@ package org.example.MathEditPage;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 
 import org.example.MathEditPage.MathPageConstant.PAGE_MODE;
 import org.example.MathEditPage.SymbolPanel.CalculusSymbolPanel;
+import org.example.MathEditPage.SymbolPanel.GreekSymbolPanel;
 import org.example.MathEditPage.SymbolPanel.MathSymbolPanel;
+import org.example.base.BaseScrollBar;
 
-public class MathKeyboard extends JPanel implements MathButtonListener {
+public class MathKeyboard extends JPanel implements PanelSwitchListener {
 
     private MathToolBar toolBar;
     private MathSymbolPanel mathSymbolPanel;
     private CalculusSymbolPanel calculusSymbolPanel;
-    private JTabbedPane tabbedPane;
+    private GreekSymbolPanel greekSymbolPanel;
     private JScrollPane scrollPane;
 
     public MathKeyboard() {
         toolBar = new MathToolBar();
         mathSymbolPanel = new MathSymbolPanel();
         calculusSymbolPanel = new CalculusSymbolPanel();
-        tabbedPane = new JTabbedPane();
+        greekSymbolPanel = new GreekSymbolPanel();
         scrollPane = new JScrollPane();
     }
 
-    public void createKeyboard(int width, int height) {
+    public void createKeyboard() {
         setLayout(new BorderLayout());
-        toolBar.createToolBar(width);
+        toolBar.createToolBar();
         toolBar.setMathButtonListener(this);
         add(toolBar, BorderLayout.NORTH);
 
 
-        mathSymbolPanel.createSymbolPanel(width, height - toolBar.getHeight());
-        calculusSymbolPanel.createSymbolPanel(width, height - toolBar.getHeight());
+        mathSymbolPanel.createSymbolPanel();
+        calculusSymbolPanel.createSymbolPanel();
+        greekSymbolPanel.createSymbolPanel();
 
         scrollPane.setViewportView(mathSymbolPanel);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setVerticalScrollBar(new BaseScrollBar(JScrollBar.VERTICAL));
 
         add(scrollPane, BorderLayout.CENTER);
 
-        System.out.println("MathKeyboard: " + getPreferredSize());
         revalidate();
         repaint();
     }
 
     @Override
-    public void onMathButtonPressed(PAGE_MODE mode) {
+    public void onPageSwitch(PAGE_MODE mode) {
 
         if (mode == PAGE_MODE.MATH) {
             scrollPane.setViewportView(mathSymbolPanel);
         } else if (mode == PAGE_MODE.GREEK) {
+            scrollPane.setViewportView(greekSymbolPanel);
         } else if (mode == PAGE_MODE.CALCULUS) {
             scrollPane.setViewportView(calculusSymbolPanel);
         }
+
         revalidate();
         repaint();
+    }
+
+    public void setMathButtonListener(MathButtonHandler listener) {
+        mathSymbolPanel.setMathButtonListener(listener);
+        calculusSymbolPanel.setMathButtonListener(listener);
+        greekSymbolPanel.setMathButtonListener(listener);
     }
 }

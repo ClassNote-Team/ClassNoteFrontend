@@ -1,15 +1,11 @@
 package org.example;
 
-import org.example.HackMDPage.HackMDPage;
-import org.example.MathEditPage.MathEditPage;
-import org.example.PaintPage.PaintPage;
+import org.example.LoginPage.LoginPage;
+import org.example.LoginPage.RegisterPage;
+
 public class Main {
     public static void main(String[] args) {
-    //    HackMDPage hackMDPage = new HackMDPage();
-    //    hackMDPage.createAndShowGUI();
-    //    MathEditPage keyboard = new MathEditPage();
-    //    keyboard.createAndShowGUI();
-        PaintPage paintPage = new PaintPage();
-        paintPage.createAndShowGUI();
+        LoginPage loginPage = new LoginPage();
+        RegisterPage registerPage = new RegisterPage();
     }
 }
