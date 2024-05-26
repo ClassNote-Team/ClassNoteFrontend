@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HackMDPage {
+public class HackMDPage implements ActionListener {
 
     private final JFrame frame;
     private JPanel contentPanel;
     private String content = "";
+    private FileButtonMenu fileButtonMenu;
+    private Boolean FileSaveStatus = false;
 
     public HackMDPage() {
         frame = new JFrame("HackMD Page");
@@ -18,21 +20,10 @@ public class HackMDPage {
 
         // Create toolbar
         JToolBar toolBar = new JToolBar();
-        JButton fileButton = new JButton("File");
-        toolBar.add(fileButton);
-        fileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JPopupMenu menu = new JPopupMenu();
-                JMenuItem newMenuItem = new JMenuItem("New");
-                JMenuItem openMenuItem = new JMenuItem("Open");
-                JMenuItem saveMenuItem = new JMenuItem("Save");
-                menu.add(newMenuItem);
-                menu.add(openMenuItem);
-                menu.add(saveMenuItem);
-                menu.show(fileButton, 0, fileButton.getHeight());
-            }
-        });
+
+        // Integrate FileButtonMenu
+        FileButtonMenu fileButtonMenu = new FileButtonMenu(this);
+        toolBar.add(fileButtonMenu.getFileButton());
 
         // change part of the code
         JButton inputButton = new JButton("Input Markdown");
@@ -77,10 +68,9 @@ public class HackMDPage {
             content = ((SplitModePanel) contentPanel).getContent();
         } else if (contentPanel instanceof InputModePanel) {
             content = ((InputModePanel) contentPanel).getContent();
-
+        } else {
+            return;
         }
-
-
     }
 
     private void clearContent() {
@@ -120,5 +110,32 @@ public class HackMDPage {
         contentPanel = new SplitModePanel(content);
         frame.add(contentPanel, BorderLayout.CENTER);
         refreshPage();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "開啟新檔":
+                content = "";
+                showInputMode();
+                break;
+            case "開啟舊檔":
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    // Read the file
+                    // Update the content
+                    // Show the input mode
+                }
+                break;
+            case "儲存檔案":
+                JFileChooser fileSaver = new JFileChooser();
+                int returnVal = fileSaver.showSaveDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    // Save the file
+                }
+                break;
+        }
     }
 }
