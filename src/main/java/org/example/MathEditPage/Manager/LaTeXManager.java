@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -20,7 +24,7 @@ public class LaTeXManager {
 
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom RANDOM = new SecureRandom();
-
+    private final Map<String, String> tokenMap = new HashMap<>();
     public static String generateRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -29,9 +33,30 @@ public class LaTeXManager {
         return sb.toString();
     }
 
+    private String latexToMarkdownImage(String latex){
+        String url = tokenMap.get(latex);
+        if (url != null) {
+            return "![image]("+url+")";
+        }
+        url = render(latex);
+        tokenMap.put(latex, url);
+        return "![image]("+url+")";
+    }
+
     public String replaceToken(String content) {
-        //todo
-        return content;
+        String regex = "\\$(.*?)\\$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(content);
+        StringBuilder result = new StringBuilder();
+        while (matcher.find()) {
+            String latexContent = matcher.group(1);
+            // 将找到的内容转换为 LaTeX 格式
+            String replacement = latexToMarkdownImage(latexContent);
+            // 将替换后的内容附加到结果中
+            matcher.appendReplacement(result, replacement);
+        }
+        matcher.appendTail(result);
+        return result.toString();
     }
 
     public String render(String latex){
@@ -61,5 +86,4 @@ public class LaTeXManager {
 
         return path;
     }
-
 }
