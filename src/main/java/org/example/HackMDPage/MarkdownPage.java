@@ -7,6 +7,7 @@ import org.example.HackMDPage.ModePanel.InputModePanel;
 import org.example.HackMDPage.ModePanel.ModePanel;
 import org.example.HackMDPage.ModePanel.SplitModePanel;
 import org.example.MathEditPage.MathEditPage;
+import org.example.PaintPage.PaintPage;
 import org.example.base.BaseButton;
 import org.example.base.BaseToolBar;
 
@@ -24,6 +25,7 @@ public class MarkdownPage implements InsertButtonHandler {
     private BaseButton displayButton;
     private BaseButton splitButton;
     private BaseButton mathButton;
+    private BaseButton paintButton;
 
     public MarkdownPage() {
         frame = new JFrame("Markdown Page");
@@ -54,6 +56,7 @@ public class MarkdownPage implements InsertButtonHandler {
         displayButton = new BaseButton("Display Page");
         splitButton = new BaseButton("Half Input/Display");
         mathButton = new BaseButton("Math");
+        paintButton = new BaseButton("Paint");
 
         // Add action listeners to the buttons
         ButtonHandler eventHandler = new ButtonHandler();
@@ -62,6 +65,7 @@ public class MarkdownPage implements InsertButtonHandler {
         displayButton.addActionListener(eventHandler);
         splitButton.addActionListener(eventHandler);
         mathButton.addActionListener(eventHandler);
+        paintButton.addActionListener(eventHandler);
 
         toolBar.add(inputButton);
         toolBar.addSeparator(new Dimension(buttonMargin, 0));
@@ -70,6 +74,8 @@ public class MarkdownPage implements InsertButtonHandler {
         toolBar.add(splitButton);
         toolBar.addSeparator(new Dimension(buttonMargin, 0));
         toolBar.add(mathButton);
+        toolBar.addSeparator(new Dimension(buttonMargin, 0));
+        toolBar.add(paintButton);
         toolBar.addSeparator(new Dimension(buttonMargin, 0));
         frame.add(toolBar, BorderLayout.NORTH);
 
@@ -158,6 +164,9 @@ public class MarkdownPage implements InsertButtonHandler {
                 showSplitMode();
             } else if (e.getSource() == mathButton) {
                 openMathPage();
+            } else if (e.getSource() == paintButton) {
+                PaintPage paintPage = new PaintPage();
+                paintPage.createAndShowGUI();
             }
         }
     }
