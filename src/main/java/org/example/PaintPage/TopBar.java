@@ -17,13 +17,13 @@ import javax.swing.JScrollBar;
 import javax.swing.ImageIcon;
 
 import org.example.PaintPage.PaintConstant.PaintObjectType;
+import org.example.base.BaseButton;
 
 public class TopBar extends JPanel{
-    private GridBagConstraints gbc;
-    private JButton dotButton;
-    private JButton rectangleButton;
-    private JButton ovalButton;
-    private JButton lineButton;
+    private BaseButton dotButton;
+    private BaseButton rectangleButton;
+    private BaseButton ovalButton;
+    private BaseButton lineButton;
     private PaintObjectType currentType = PaintObjectType.DOT;
     private JLabel previewColorLabel;
     private int red = 0;
@@ -44,19 +44,19 @@ public class TopBar extends JPanel{
         JPanel buttonPanel = new JPanel(new GridLayout(2,2));
 
         ImageIcon pen = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/pen.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        dotButton = new JButton(pen);
+        dotButton = new BaseButton(pen);
         dotButton.setPreferredSize(new Dimension(30,30));
 
         ImageIcon rectangle = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/rectangle.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        rectangleButton = new JButton(rectangle);
+        rectangleButton = new BaseButton(rectangle);
         rectangleButton.setPreferredSize(new Dimension(30,30));
 
         ImageIcon oval = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/oval.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        ovalButton = new JButton(oval);
+        ovalButton = new BaseButton(oval);
         ovalButton.setPreferredSize(new Dimension(30,30));
 
         ImageIcon line = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/line.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        lineButton = new JButton(line);
+        lineButton = new BaseButton(line);
         lineButton.setPreferredSize(new Dimension(30,30));
         ButtonListener buttonListener = new ButtonListener();
         dotButton.addActionListener(buttonListener);

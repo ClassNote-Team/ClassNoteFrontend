@@ -36,11 +36,11 @@ public class LaTeXManager {
     private String latexToMarkdownImage(String latex){
         String url = tokenMap.get(latex);
         if (url != null) {
-            return "![image]("+url+")";
+            return "![image](file:"+url+")";
         }
         url = render(latex);
         tokenMap.put(latex, url);
-        return "![image]("+url+")";
+        return "![image](file:"+url+")";
     }
 
     public String replaceToken(String content) {

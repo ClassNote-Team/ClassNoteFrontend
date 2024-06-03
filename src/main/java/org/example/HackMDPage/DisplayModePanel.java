@@ -4,6 +4,8 @@ import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
+import org.example.MathEditPage.Manager.LaTeXManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,6 +16,9 @@ public class DisplayModePanel extends JPanel {
     public DisplayModePanel(String content) {
         setBackground(Color.WHITE); // 設定背景顏色為白色
         setLayout(new BorderLayout());
+        System.out.println("qwer");
+        LaTeXManager m = new LaTeXManager();
+        content = m.replaceToken(content);
         setContent(content);
         JScrollPane scrollPane = new JScrollPane(display); // 建立一個帶滾動條的滾動面板
         add(scrollPane, BorderLayout.CENTER); // 將滾動面板加入到面板中

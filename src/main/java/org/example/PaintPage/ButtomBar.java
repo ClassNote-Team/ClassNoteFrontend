@@ -8,16 +8,24 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.example.HackMDPage.InsertPaintPageImageButtonHandler;
+import org.example.MathEditPage.MathPageConstant;
+import org.example.base.BaseButton;
+
+import static org.example.MathEditPage.Manager.LaTeXManager.generateRandomString;
+
 public class ButtomBar extends JPanel{
-    private final JButton clearButton;
-    private final JButton saveButton;
+    private final BaseButton clearButton;
+    private final BaseButton saveButton;
     private final DrawPanel drawPanel;
     private final JFrame frame;
-    public ButtomBar(DrawPanel drawPanel, JFrame frame){
-        clearButton = new JButton("Clear");
-        saveButton = new JButton("Save");
+    private InsertPaintPageImageButtonHandler insertPaintPageImageButtonHandler;
+    public ButtomBar(DrawPanel drawPanel, JFrame frame, InsertPaintPageImageButtonHandler insertPaintPageImageButtonHandler){
+        clearButton = new BaseButton("Clear");
+        saveButton = new BaseButton("Save");
         this.drawPanel = drawPanel;
         this.frame = frame;
+        this.insertPaintPageImageButtonHandler = insertPaintPageImageButtonHandler;
         add(clearButton);
         add(saveButton);
         ButtonListener buttonListener = new ButtonListener();
@@ -30,7 +38,9 @@ public class ButtomBar extends JPanel{
                 drawPanel.clearDrawing();
             } else if(e.getSource() == saveButton){
                 try{
-                    drawPanel.saveImage();
+                    String path = MathPageConstant.IMAGE_PATH + generateRandomString(11) + ".png";
+                    insertPaintPageImageButtonHandler.onButtonPaintPageImagePressed(path);
+                    drawPanel.saveImage(path);
                     frame.dispose();
                 } catch(IOException ex){
                     ex.printStackTrace();

@@ -46,11 +46,17 @@ public class DrawPanel extends JPanel {
         }
         g.drawImage(image, 0, 0, null);
     }
-    public void saveImage() throws IOException {
+    public void saveImage(String path) throws IOException {
         // TODO
         System.out.println("Saving image");
-        FileOutputStream os = new FileOutputStream("src/main/java/org/example/PaintPage/img/output.png");
-        ImageIO.write(image, "PNG", os);
+        FileOutputStream os = new FileOutputStream(path);
+        // resize the image to 200x150
+        // ImageIO.write(image, "PNG", os);
+        BufferedImage resizedImage = new BufferedImage(200, 150, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(image, 0, 0, 200, 150, null);
+        g.dispose();
+        ImageIO.write(resizedImage, "PNG", os);
     }
     private class MouseHandler extends MouseAdapter {
         // creates and sets the initial position for the new shape
