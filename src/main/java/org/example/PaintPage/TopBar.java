@@ -3,14 +3,11 @@ package org.example.PaintPage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.Image;
-
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -43,19 +40,19 @@ public class TopBar extends JPanel{
     private void addButtons(){
         JPanel buttonPanel = new JPanel(new GridLayout(2,2));
 
-        ImageIcon pen = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/pen.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon pen = new ImageIcon(new ImageIcon(PaintConstant.IMAGE_PATH + "pen.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         dotButton = new BaseButton(pen);
         dotButton.setPreferredSize(new Dimension(30,30));
 
-        ImageIcon rectangle = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/rectangle.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon rectangle = new ImageIcon(new ImageIcon(PaintConstant.IMAGE_PATH + "rectangle.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         rectangleButton = new BaseButton(rectangle);
         rectangleButton.setPreferredSize(new Dimension(30,30));
 
-        ImageIcon oval = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/oval.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon oval = new ImageIcon(new ImageIcon(PaintConstant.IMAGE_PATH + "oval.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         ovalButton = new BaseButton(oval);
         ovalButton.setPreferredSize(new Dimension(30,30));
 
-        ImageIcon line = new ImageIcon(new ImageIcon("src/main/java/org/example/PaintPage/img/line.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon line = new ImageIcon(new ImageIcon(PaintConstant.IMAGE_PATH + "line.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         lineButton = new BaseButton(line);
         lineButton.setPreferredSize(new Dimension(30,30));
         ButtonListener buttonListener = new ButtonListener();
@@ -73,14 +70,14 @@ public class TopBar extends JPanel{
     private void addColorScrollBar(){
         JPanel colorPanel = new JPanel();
         JPanel barPanel = new JPanel(new GridLayout(0, 2));
-        redScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 1, 0, 256);
-        greenScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 1, 0, 256);
-        blueScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, 1, 0, 256);
-        sizeScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 5, 1, 5, 50);
-        redScrollBar.setPreferredSize(new Dimension(100, 20));
-        greenScrollBar.setPreferredSize(new Dimension(100, 20));
-        blueScrollBar.setPreferredSize(new Dimension(100, 20));
-        sizeScrollBar.setPreferredSize(new Dimension(100, 20));
+        redScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, PaintConstant.BAR_EXTEND, PaintConstant.COLOR_MIN, PaintConstant.COLOR_MAX);
+        greenScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, PaintConstant.BAR_EXTEND, PaintConstant.COLOR_MIN, PaintConstant.COLOR_MAX);
+        blueScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, 0, PaintConstant.BAR_EXTEND, PaintConstant.COLOR_MIN, PaintConstant.COLOR_MAX);
+        sizeScrollBar = new JScrollBar(JScrollBar.HORIZONTAL, PaintConstant.DOT_SIZE, PaintConstant.BAR_EXTEND, 5, 50);
+        redScrollBar.setPreferredSize(new Dimension(PaintConstant.BAR_WIDTH, PaintConstant.BAR_HEIGHT));
+        greenScrollBar.setPreferredSize(new Dimension(PaintConstant.BAR_WIDTH, PaintConstant.BAR_HEIGHT));
+        blueScrollBar.setPreferredSize(new Dimension(PaintConstant.BAR_WIDTH, PaintConstant.BAR_HEIGHT));
+        sizeScrollBar.setPreferredSize(new Dimension(PaintConstant.BAR_WIDTH, PaintConstant.BAR_HEIGHT));
         JLabel redLabel = new JLabel("Red");
         JLabel greenLabel = new JLabel("Green");
         JLabel blueLabel = new JLabel("Blue");

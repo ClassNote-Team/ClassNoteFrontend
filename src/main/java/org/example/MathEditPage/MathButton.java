@@ -1,9 +1,5 @@
 package org.example.MathEditPage;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,8 +8,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
-
 import org.example.base.BaseButton;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;

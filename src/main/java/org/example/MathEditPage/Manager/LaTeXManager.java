@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -24,7 +24,7 @@ public class LaTeXManager {
 
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom RANDOM = new SecureRandom();
-    private final Map<String, String> tokenMap = new HashMap<>();
+    private static final Map<String, String> tokenMap = new HashMap<>();
 
     public static String generateRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);
@@ -34,7 +34,7 @@ public class LaTeXManager {
         return sb.toString();
     }
 
-    private String latexToMarkdownImage(String latex) {
+    public static String latexToMarkdownImage(String latex) throws IOException {
         String url = tokenMap.get(latex);
         if (url != null) {
             return "![image](file:" + url + ")";
@@ -44,7 +44,7 @@ public class LaTeXManager {
         return "![image](file:" + url + ")";
     }
 
-    public String replaceToken(String content) {
+    public static String replaceToken(String content) throws IOException {
         String regex = "\\$(.*?)\\$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(content);
@@ -60,7 +60,7 @@ public class LaTeXManager {
         return result.toString();
     }
 
-    public String render(String latex) {
+    private static String render(String latex) throws IOException {
         TeXFormula formula = new TeXFormula(latex);
         TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, MathPageConstant.LATEX_FONT_SIZE);
         BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -79,8 +79,10 @@ public class LaTeXManager {
         g2.dispose();
 
         String path = MathPageConstant.IMAGE_PATH + generateRandomString(10) + ".png";
+        File file = new File(path);
+        file.createNewFile();
         try {
-            ImageIO.write(image, "png", new File(path));
+            ImageIO.write(image, "png", file);
         } catch (Exception e) {
             e.printStackTrace();
         }

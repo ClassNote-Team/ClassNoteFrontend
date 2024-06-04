@@ -10,8 +10,10 @@ import org.example.MarkdownPage.ModePanel.InputModePanel;
 import org.example.MarkdownPage.ModePanel.ModePanel;
 import org.example.MarkdownPage.ModePanel.SplitModePanel;
 import org.example.MathEditPage.MathEditPage;
+import org.example.MathEditPage.Manager.LaTeXManager;
 import org.example.PaintPage.PaintPage;
 import org.example.base.BaseButton;
+import org.example.base.BaseContants;
 import org.example.base.BaseToolBar;
 
 
@@ -20,14 +22,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -175,7 +175,7 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
 
     private void openFileChoose() throws IOException {
         OpenFile openFile = new OpenFile();
-        openFile.chooseFile("test", this);
+        openFile.chooseFile(BaseContants.USER_ID, this);
     }
 
     private void openSetFilenamePage(){
@@ -185,6 +185,12 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
 
     @Override
     public void onButtonPressed(String latex){
+        try {
+            LaTeXManager.latexToMarkdownImage(latex);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         latex = "$" + latex + "$";
         if (contentPanel instanceof InputModePanel){
             contentPanel.insertContent(latex);
@@ -192,6 +198,7 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
         else if (contentPanel instanceof SplitModePanel){
             contentPanel.insertContent(latex);
         }
+        System.out.println(contentPanel.getContent());
     }
 
     @Override
@@ -205,15 +212,16 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onButtonOpenFilePressed(String docID) throws IOException {
         this.docID = docID;
-        URL url = new URL("http://localhost:8080/markdown/" + docID);
+        URL url = new URL(BaseContants.BASE_URL + "/markdown/" + docID);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-Type", "application/json");
-        Map<String, Object> file;
         List<String> imageList;
+        Map<String, Object> file;
         String newContent;
         try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             String inputLine;
@@ -244,7 +252,7 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
             System.out.println(docID);
             System.out.println(content);
 
-            url = new URL("http://localhost:8080/markdown");
+            url = new URL(BaseContants.BASE_URL + "/markdown");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
   
@@ -258,9 +266,9 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("filename", filename);
             map.put("content", content);
-            map.put("userId", "test");
+            map.put("userId", BaseContants.USER_ID);
             map.put("base64Images", imageList);
-            System.out.println("test");
+            System.out.println("Set filename");
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(map);
             try (OutputStream os = conn.getOutputStream()) {
@@ -366,7 +374,7 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
                     System.out.println(docID);
                     System.out.println(content);
 
-                    url = new URL("http://localhost:8080/markdown/" + docID);
+                    url = new URL(BaseContants.BASE_URL + "/markdown/" + docID);
                     conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("PUT");
 
@@ -380,9 +388,9 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     map.put("filename", filename);
                     map.put("content", content);
-                    map.put("userId", "test");
+                    map.put("userId", BaseContants.USER_ID);
                     map.put("base64Images", imageList);
-                    System.out.println("test");
+                    System.out.println("Save file");
                     ObjectMapper mapper = new ObjectMapper();
                     String jsonString = mapper.writeValueAsString(map);
                     try (OutputStream os = conn.getOutputStream()) {
