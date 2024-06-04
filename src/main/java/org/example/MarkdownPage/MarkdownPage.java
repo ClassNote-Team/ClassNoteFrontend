@@ -109,8 +109,7 @@ public class MarkdownPage implements InsertButtonHandler, InsertPaintPageImageBu
         toolBar.addSeparator(new Dimension(buttonMargin, 0));
         frame.add(toolBar, BorderLayout.NORTH);
 
-        // Show input mode by default
-        showInputMode();
+        showSplitMode();
 
         frame.setVisible(true);
     }
