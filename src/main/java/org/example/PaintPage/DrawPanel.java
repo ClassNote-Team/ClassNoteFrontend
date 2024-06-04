@@ -9,10 +9,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class DrawPanel extends JPanel {
@@ -47,7 +45,6 @@ public class DrawPanel extends JPanel {
         g.drawImage(image, 0, 0, null);
     }
     public void saveImage(String path) throws IOException {
-        // TODO
         System.out.println("Saving image");
         FileOutputStream os = new FileOutputStream(path);
         // resize the image to 200x150
@@ -92,7 +89,6 @@ public class DrawPanel extends JPanel {
 
         // update the shape to the current mouse position while dragging
         public void mouseDragged(MouseEvent e) {
-            // TODO
             if(topBar.getCurrentType() == PaintObjectType.RECTANGLE) {
                 ((Rectangle) currentPaintObject).setX2(e.getX());
                 ((Rectangle) currentPaintObject).setY2(e.getY());

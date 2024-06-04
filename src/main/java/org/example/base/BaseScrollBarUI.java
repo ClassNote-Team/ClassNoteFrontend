@@ -13,13 +13,21 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 
 public class BaseScrollBarUI extends BasicScrollBarUI {
     private static final int round = 10;
-    private static final int THUMB_WIDTH = 10;
-    private static final int TRACK_WIDTH = 10;
+    private static int THUMB_WIDTH = 10;
+    private static int TRACK_WIDTH = 10;
+
+    public void setThumbWidth(int width){
+        THUMB_WIDTH = width;
+    }
+
+    public void setTrackWidth(int width){
+        TRACK_WIDTH = width;
+    }
 
     @Override
     protected void configureScrollBarColors() {
         this.thumbColor = new Color(96, 99, 102);
-        this.trackColor = new Color(180, 180, 180);
+        this.trackColor = new Color(150, 150, 150);
     }
 
     @Override

@@ -2,8 +2,13 @@ package org.example.LoginPage;
 
 import javax.swing.*;
 
+import org.example.MarkdownPage.MarkdownPage;
 import org.example.base.BaseButton;
+import org.example.base.BaseContants;
+import org.example.base.ResponseReader;
+import org.json.JSONObject;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -18,6 +23,7 @@ public class LoginPage{
     private JTextField emailField;
     private JPasswordField passwordField;
     private BaseButton loginButton;
+    private BaseButton registerButton;
 
     public LoginPage() {
         frame = new JFrame("Login");
@@ -26,17 +32,23 @@ public class LoginPage{
         frame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(5, 1, 5, 5));
 
         emailField = new JTextField(15);
         passwordField = new JPasswordField(15);
         loginButton = new BaseButton("Login");
+        registerButton = new BaseButton("Register");
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 2, 5, 5));
+        buttonPanel.add(loginButton);
+        buttonPanel.add(registerButton);
 
         panel.add(new JLabel("Email:"));
         panel.add(emailField);
         panel.add(new JLabel("Password:"));
         panel.add(passwordField);
-        panel.add(loginButton);
+        panel.add(buttonPanel);
 
         frame.add(panel);
         frame.setVisible(true);
@@ -45,6 +57,12 @@ public class LoginPage{
             @Override
             public void actionPerformed(ActionEvent e) {
                 login();
+            }
+        });
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RegisterPage();
             }
         });
     }
@@ -57,6 +75,8 @@ public class LoginPage{
             int responseCode = getResponseCode(email, password);
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 JOptionPane.showMessageDialog(frame, "Login successful");
+                frame.dispose();
+                new MarkdownPage();
             } else {
                 JOptionPane.showMessageDialog(frame, "Login failed");
             }
@@ -66,7 +86,7 @@ public class LoginPage{
     }
 
     private static int getResponseCode(String email, String password) throws IOException {
-        URL url = new URL("http://localhost:8080/login");
+        URL url = new URL(BaseContants.BASE_URL + "/login");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
@@ -79,6 +99,12 @@ public class LoginPage{
             os.write(input, 0, input.length);
         }
 
+        JSONObject body = ResponseReader.read(conn);
+        BaseContants.USER_ID = body.getString("id");
+        BaseContants.USER_NAME = body.getString("username");
+        BaseContants.USER_EMAIL = body.getString("email");
+
         return conn.getResponseCode();
     }
+
 }

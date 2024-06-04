@@ -13,7 +13,7 @@ public class PaintPage {
 
         TopBar topBar = new TopBar();
         DrawPanel drawPanel = new DrawPanel(topBar);
-        ButtomBar buttomBar = new ButtomBar(drawPanel, frame, insertPaintPageImageButtonHandler);
+        ButtonBar buttomBar = new ButtonBar(drawPanel, frame, insertPaintPageImageButtonHandler);
         frame.add(topBar, BorderLayout.NORTH);
         frame.add(drawPanel, BorderLayout.CENTER);
         frame.add(buttomBar, BorderLayout.SOUTH);

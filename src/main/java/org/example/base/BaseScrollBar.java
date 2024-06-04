@@ -9,5 +9,12 @@ public class BaseScrollBar extends JScrollBar {
         setUI(new BaseScrollBarUI());
     }
 
+    public BaseScrollBar(int orientation, int value, int extent, int min, int max, int width) {
+        super(orientation, value, extent, min, max);
+        BaseScrollBarUI ui = new BaseScrollBarUI();
+        ui.setThumbWidth(width);
+        ui.setTrackWidth(width);
+        setUI(ui);
+    }
 }
 

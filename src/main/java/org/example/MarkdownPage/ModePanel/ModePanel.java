@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.example.MathEditPage.Manager.LaTeXManager;
 
 public class ModePanel extends JPanel{
 
@@ -28,6 +29,14 @@ public class ModePanel extends JPanel{
 
     public void insertContent(String content){
         input.insert(content, input.getCaretPosition());
+        String text = input.getText();
+        try {
+            text = LaTeXManager.replaceToken(text);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        input.setText(text);
     }
 
     public void render(String content){

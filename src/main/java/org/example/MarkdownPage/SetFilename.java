@@ -10,9 +10,7 @@ import javax.swing.JTextArea;
 import org.example.base.BaseButton;
 
 public class SetFilename {
-    private SetFilenameButtonHandler handler;
     public void open(SetFilenameButtonHandler handler) {
-        this.handler = handler;
         JFrame frame = new JFrame("Set Filename");
         frame.setLayout(new GridLayout(0,1));
         JTextArea textArea = new JTextArea();

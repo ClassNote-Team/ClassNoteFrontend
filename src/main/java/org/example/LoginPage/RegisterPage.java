@@ -3,7 +3,9 @@ package org.example.LoginPage;
 import javax.swing.*;
 
 import org.example.base.BaseButton;
+import org.example.base.BaseContants;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -21,12 +23,12 @@ public class RegisterPage {
 
     public RegisterPage() {
         frame = new JFrame("Register");
-        frame.setSize(300, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(7, 1, 5, 5));
 
         usernameField = new JTextField(15);
         emailField = new JTextField(15);
@@ -48,6 +50,7 @@ public class RegisterPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 register();
+                frame.dispose();
             }
         });
     }
@@ -72,7 +75,7 @@ public class RegisterPage {
     }
 
     private static int getCode(String username, String email, String password) throws IOException {
-        URL url = new URL("http://localhost:8080/register");
+        URL url = new URL(BaseContants.BASE_URL + "/register");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
