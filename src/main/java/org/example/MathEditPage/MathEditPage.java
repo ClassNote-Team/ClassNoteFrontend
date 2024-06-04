@@ -11,7 +11,7 @@ import javax.swing.JToolBar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.example.HackMDPage.InsertButtonHandler;
+import org.example.MarkdownPage.InsertButtonHandler;
 import org.example.base.BaseButton;
 import org.example.base.BaseScrollBar;
 import org.example.base.BaseToolBar;

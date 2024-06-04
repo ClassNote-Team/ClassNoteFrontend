@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.*;
 
-import org.example.HackMDPage.InsertPaintPageImageButtonHandler;
+import org.example.MarkdownPage.InsertPaintPageImageButtonHandler;
 
 public class PaintPage {
 
