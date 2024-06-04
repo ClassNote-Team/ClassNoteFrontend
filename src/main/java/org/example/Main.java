@@ -9,10 +9,3 @@ public class Main {
         RegisterPage registerPage = new RegisterPage();
     }
 }
-// import org.example.HackMDPage.MarkdownPage;
-
-// public class Main {
-//     public static void main(String[] args) {
-//         MarkdownPage markdownPage = new MarkdownPage();
-//     }
-// }

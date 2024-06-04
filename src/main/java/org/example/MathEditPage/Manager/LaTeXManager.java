@@ -25,7 +25,6 @@ public class LaTeXManager {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom RANDOM = new SecureRandom();
     private final Map<String, String> tokenMap = new HashMap<>();
-
     public static String generateRandomString(int length) {
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -34,14 +33,14 @@ public class LaTeXManager {
         return sb.toString();
     }
 
-    private String latexToMarkdownImage(String latex) {
+    private String latexToMarkdownImage(String latex){
         String url = tokenMap.get(latex);
         if (url != null) {
-            return "![image](file:" + url + ")";
+            return "![image]("+url+")";
         }
         url = render(latex);
         tokenMap.put(latex, url);
-        return "![image](file:" + url + ")";
+        return "![image]("+url+")";
     }
 
     public String replaceToken(String content) {
@@ -60,7 +59,7 @@ public class LaTeXManager {
         return result.toString();
     }
 
-    public String render(String latex) {
+    public String render(String latex){
         TeXFormula formula = new TeXFormula(latex);
         TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, MathPageConstant.LATEX_FONT_SIZE);
         BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);

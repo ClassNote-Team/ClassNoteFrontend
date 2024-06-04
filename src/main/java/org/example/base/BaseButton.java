@@ -1,6 +1,5 @@
 package org.example.base;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Color;
@@ -23,11 +22,6 @@ public class BaseButton extends JButton {
 
     public BaseButton(String text){
         super(text);
-        init();
-    }
-
-    public BaseButton(ImageIcon icon) {
-        super(icon);
         init();
     }
 

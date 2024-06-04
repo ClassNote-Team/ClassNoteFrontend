@@ -4,16 +4,14 @@ import java.awt.BorderLayout;
 
 import javax.swing.*;
 
-import org.example.HackMDPage.InsertPaintPageImageButtonHandler;
-
 public class PaintPage {
 
-    public void createAndShowGUI(InsertPaintPageImageButtonHandler insertPaintPageImageButtonHandler){
+    public void createAndShowGUI(){
         JFrame frame = new JFrame("Paint Page");
 
         TopBar topBar = new TopBar();
         DrawPanel drawPanel = new DrawPanel(topBar);
-        ButtomBar buttomBar = new ButtomBar(drawPanel, frame, insertPaintPageImageButtonHandler);
+        ButtomBar buttomBar = new ButtomBar(drawPanel, frame);
         frame.add(topBar, BorderLayout.NORTH);
         frame.add(drawPanel, BorderLayout.CENTER);
         frame.add(buttomBar, BorderLayout.SOUTH);

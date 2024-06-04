@@ -1,9 +1,6 @@
 package org.example.LoginPage;
 
 import javax.swing.*;
-
-import org.example.base.BaseButton;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -17,7 +14,7 @@ public class LoginPage{
     private JFrame frame;
     private JTextField emailField;
     private JPasswordField passwordField;
-    private BaseButton loginButton;
+    private JButton loginButton;
 
     public LoginPage() {
         frame = new JFrame("Login");
@@ -30,7 +27,7 @@ public class LoginPage{
 
         emailField = new JTextField(15);
         passwordField = new JPasswordField(15);
-        loginButton = new BaseButton("Login");
+        loginButton = new JButton("Login");
 
         panel.add(new JLabel("Email:"));
         panel.add(emailField);
