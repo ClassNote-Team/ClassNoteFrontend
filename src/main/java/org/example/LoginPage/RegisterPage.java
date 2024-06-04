@@ -1,6 +1,9 @@
 package org.example.LoginPage;
 
 import javax.swing.*;
+
+import org.example.base.BaseButton;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,7 +17,7 @@ public class RegisterPage {
     private JTextField usernameField;
     private JTextField emailField;
     private JPasswordField passwordField;
-    private JButton registerButton;
+    private BaseButton registerButton;
 
     public RegisterPage() {
         frame = new JFrame("Register");
@@ -28,7 +31,7 @@ public class RegisterPage {
         usernameField = new JTextField(15);
         emailField = new JTextField(15);
         passwordField = new JPasswordField(15);
-        registerButton = new JButton("Register");
+        registerButton = new BaseButton("Register");
 
         panel.add(new JLabel("Username:"));
         panel.add(usernameField);
@@ -69,7 +72,7 @@ public class RegisterPage {
     }
 
     private static int getCode(String username, String email, String password) throws IOException {
-        URL url = new URL("http://localhost:8080/login/register");
+        URL url = new URL("http://localhost:8080/register");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Content-Type", "application/json");
