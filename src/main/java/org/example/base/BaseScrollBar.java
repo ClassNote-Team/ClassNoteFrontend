@@ -7,6 +7,8 @@ public class BaseScrollBar extends JScrollBar {
     public BaseScrollBar(int orientation) {
         super(orientation);
         setUI(new BaseScrollBarUI());
+        setUnitIncrement(32);
+
     }
 
     public BaseScrollBar(int orientation, int value, int extent, int min, int max, int width) {
