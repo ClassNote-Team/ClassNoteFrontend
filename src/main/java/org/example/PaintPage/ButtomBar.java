@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.example.HackMDPage.InsertPaintPageImageButtonHandler;
+import org.example.MarkdownPage.InsertPaintPageImageButtonHandler;
 import org.example.MathEditPage.MathPageConstant;
 import org.example.base.BaseButton;
 
