@@ -48,7 +48,7 @@ public class LaTeXManager {
         String regex = "\\$(.*?)\\$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(content);
-        StringBuilder result = new StringBuilder();
+        StringBuffer result = new StringBuffer();
         while (matcher.find()) {
             String latexContent = matcher.group(1);
             // 将找到的内容转换为 LaTeX 格式
